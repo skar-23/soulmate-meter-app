@@ -1,52 +1,50 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import templateUrl from "../../template.png";
+import { getZodiacSymbol } from "@/utils/zodiac";
+import { Button } from "@/components/ui/button";
+import { Download, Share2 } from "lucide-react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 // coords are the 1080-space positions we stored in tools/template_coords_1080.json
 const COORDS = {
   name_left: { pos: [271, 328], font: 60 },
   name_right: { pos: [807, 322], font: 60 },
-  percentage: { pos: [475, 1024], font: 240 },
+  percentage: { pos: [425, 1034], font: 240 },
   tagline: { pos: [501, 1271], font: 50 },
 };
 
 export default function GenerateCard() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [name1, setName1] = useState("Elara");
-  const [name2, setName2] = useState("Orion");
-  const [percentage, setPercentage] = useState(97);
   const [loaded, setLoaded] = useState(false);
+  const location = useLocation();
+
+  const searchParams = new URLSearchParams(location.search);
+  const isZodiacCard = searchParams.has("sign1");
+  const name1 = searchParams.get("sign1") || searchParams.get("name1") || "Elara";
+  const name2 = searchParams.get("sign2") || searchParams.get("name2") || "Orion";
+  const percentage = searchParams.get("percentage") || 97;
 
   useEffect(() => {
-    const img = new Image();
-    img.src = templateUrl;
-    img.onload = () => {
-      const canvas = canvasRef.current!;
-      if (!canvas) return;
-      canvas.width = img.width;
-      canvas.height = img.height;
-      const ctx = canvas.getContext("2d")!;
-      ctx.drawImage(img, 0, 0);
-      setLoaded(true);
-      draw(ctx);
+    // It's important to load the custom font before using it on the canvas
+    document.fonts.load('bold 60px Cinzel').then(() => {
+        const img = new Image();
+        img.src = templateUrl;
+        img.onload = () => {
+            const canvas = canvasRef.current!;
+            if (!canvas) return;
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const ctx = canvas.getContext("2d")!;
+            ctx.drawImage(img, 0, 0);
+            setLoaded(true);
+            draw(ctx);
+        };
+    });
 
-      // handle query params (auto-generate, download, share)
-      const params = new URLSearchParams(window.location.search);
-      const qn1 = params.get("name1");
-      const qn2 = params.get("name2");
-      const qp = params.get("percentage");
-      const qd = params.get("download");
-      const qs = params.get("share");
-      if (qn1) setName1(qn1);
-      if (qn2) setName2(qn2);
-      if (qp) setPercentage(Number(qp));
-      setTimeout(() => {
-        if (qd === "1") handleDownload();
-        if (qs === "1") handleShare();
-      }, 300);
-    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [name1, name2, percentage, isZodiacCard]);
 
   function draw(ctx: CanvasRenderingContext2D) {
     // redraw template first
@@ -63,9 +61,10 @@ export default function GenerateCard() {
         y: number,
         fontSize: number,
         color = "#D4AF37",
-        stroke = "#0f172a"
+        stroke = "#0f172a",
+        fontFamily = "Segoe UI"
       ) => {
-        ctx.font = `bold ${fontSize}px Segoe UI`;
+        ctx.font = `bold ${fontSize}px ${fontFamily}`;
         ctx.textAlign = "center";
         ctx.textBaseline = "middle";
         ctx.lineWidth = Math.max(2, Math.floor(fontSize / 18));
@@ -82,8 +81,22 @@ export default function GenerateCard() {
       const nr = COORDS.name_right;
       const p = COORDS.percentage;
       const t = COORDS.tagline;
-      drawText(name1, nl.pos[0] * scale, nl.pos[1] * scale, nl.font * scale);
-      drawText(name2, nr.pos[0] * scale, nr.pos[1] * scale, nr.font * scale);
+      
+      let displayText1 = name1;
+      let displayText2 = name2;
+      
+      if (isZodiacCard) {
+          const symbol1 = getZodiacSymbol(name1);
+          const symbol2 = getZodiacSymbol(name2);
+          displayText1 = `${name1} ${symbol1}`;
+          displayText2 = `${name2} ${symbol2}`;
+      }
+
+      // Draw names/signs with Cinzel font
+      drawText(displayText1, nl.pos[0] * scale, nl.pos[1] * scale, nl.font * scale, "#D4AF37", "#0f172a", "Cinzel");
+      drawText(displayText2, nr.pos[0] * scale, nr.pos[1] * scale, nr.font * scale, "#D4AF37", "#0f172a", "Cinzel");
+
+      // Draw percentage with default Segoe UI font
       drawText(
         String(percentage),
         p.pos[0] * scale,
@@ -92,33 +105,32 @@ export default function GenerateCard() {
       );
 
       const subtitle =
-        percentage >= 90
-          ? "A Celestial Connection! Soulmates."
-          : "A Celestial Connection!";
+        isZodiacCard
+            ? (Number(percentage) >= 80 ? "A Cosmic Union!" : "Written in the Stars.")
+            : (Number(percentage) >= 90 ? "A Celestial Connection! Soulmates." : "A Celestial Connection!");
+
+      // Draw tagline with Cinzel font and golden color
       drawText(
         subtitle,
         t.pos[0] * scale,
         t.pos[1] * scale,
         t.font * scale,
-        "#ffffff"
+        "#D4AF37",
+        "#0f172a",
+        "Cinzel"
       );
     };
   }
-
-  const handleGenerate = () => {
-    const canvas = canvasRef.current!;
-    const ctx = canvas.getContext("2d")!;
-    draw(ctx);
-  };
 
   const handleDownload = () => {
     const canvas = canvasRef.current!;
     const url = canvas.toDataURL("image/png");
     const a = document.createElement("a");
     a.href = url;
-    a.download = `soulmate-${name1}-${name2}.png`;
+    const fileName = isZodiacCard ? `cosmic-connection-${name1}-${name2}.png` : `soulmate-${name1}-${name2}.png`;
+    a.download = fileName;
     document.body.appendChild(a);
-    a.click();
+a.click();
     a.remove();
   };
 
@@ -129,15 +141,17 @@ export default function GenerateCard() {
         canvas.toBlob((b) => res(b), "image/png")
       );
       if (!blob) return;
+      const fileName = isZodiacCard ? `cosmic-connection-${name1}-${name2}.png` : `soulmate-${name1}-${name2}.png`;
+      const title = isZodiacCard ? "Cosmic Connection" : "Soulmate Card";
       const filesArray = [
-        new File([blob], `soulmate-${name1}-${name2}.png`, {
+        new File([blob], fileName, {
           type: "image/png",
         }),
       ];
       // @ts-ignore
       if (navigator.canShare && navigator.canShare({ files: filesArray })) {
         // @ts-ignore
-        await navigator.share({ files: filesArray, title: "Soulmate card" });
+        await navigator.share({ files: filesArray, title: title });
       } else {
         alert("Share not supported on this browser. Please download instead.");
       }
@@ -148,55 +162,35 @@ export default function GenerateCard() {
   };
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">Generate Card</h2>
-      <div className="grid grid-cols-2 gap-4 max-w-xl">
-        <input
-          value={name1}
-          onChange={(e) => setName1(e.target.value)}
-          placeholder="Name 1"
-          className="input input-bordered"
-        />
-        <input
-          value={name2}
-          onChange={(e) => setName2(e.target.value)}
-          placeholder="Name 2"
-          className="input input-bordered"
-        />
-        <input
-          type="number"
-          value={percentage}
-          onChange={(e) => setPercentage(Number(e.target.value))}
-          className="input input-bordered col-span-1"
-        />
-        <div className="flex gap-2">
-          <button
-            className="btn btn-primary"
-            onClick={handleGenerate}
-            disabled={!loaded}
-          >
-            Generate
-          </button>
-          <button className="btn" onClick={handleDownload} disabled={!loaded}>
-            Download
-          </button>
-          <button className="btn" onClick={handleShare} disabled={!loaded}>
-            Share
-          </button>
-        </div>
-      </div>
+    <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20 flex flex-col">
+        <Header />
+        <main className="flex-grow p-6 flex flex-col items-center">
+            <h2 className="text-2xl font-bold mb-4">{isZodiacCard ? "Your Cosmic Connection Card" : "Your Love Card"}</h2>
+            
+            <div className="mt-6">
+                <canvas
+                ref={canvasRef}
+                style={{
+                    maxWidth: "480px",
+                    width: "100%",
+                    borderRadius: 8,
+                    boxShadow: "0 4px 14px rgba(2,6,23,0.6)",
+                }}
+                />
+            </div>
 
-      <div className="mt-6">
-        <canvas
-          ref={canvasRef}
-          style={{
-            maxWidth: "480px",
-            width: "100%",
-            borderRadius: 8,
-            boxShadow: "0 4px 14px rgba(2,6,23,0.6)",
-          }}
-        />
-      </div>
+            <div className="flex gap-4 mt-6">
+                <Button onClick={handleDownload} disabled={!loaded} size="lg">
+                    <Download className="mr-2 h-5 w-5" />
+                    Download
+                </Button>
+                <Button onClick={handleShare} disabled={!loaded} size="lg" variant="outline">
+                    <Share2 className="mr-2 h-5 w-5" />
+                    Share
+                </Button>
+            </div>
+        </main>
+        <Footer />
     </div>
   );
 }

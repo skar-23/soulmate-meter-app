@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Heart, Calendar as CalendarIcon } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Heart, Calendar as CalendarIcon, Download } from "lucide-react";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -7,20 +8,27 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import Header from "@/components/Header";
-import { calculateLoveByDates, getLoveMessage } from "@/utils/loveCalculator";
+import { getZodiacSign, getZodiacCompatibility } from "@/utils/zodiac";
 import { cn } from "@/lib/utils";
 import dobBg from "@/assets/dob-bg.jpg";
+import Footer from "@/components/Footer";
 
 const DobCalculator = () => {
   const [date1, setDate1] = useState<Date>();
   const [date2, setDate2] = useState<Date>();
   const [result, setResult] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
+  const [sign1, setSign1] = useState<string>("");
+  const [sign2, setSign2] = useState<string>("");
 
   const handleCalculate = () => {
     if (date1 && date2) {
-      const percentage = calculateLoveByDates(date1, date2);
+      const sign1 = getZodiacSign(date1);
+      const sign2 = getZodiacSign(date2);
+      const percentage = getZodiacCompatibility(sign1, sign2);
       setResult(percentage);
+      setSign1(sign1);
+      setSign2(sign2);
       setShowResult(true);
     }
   };
@@ -30,15 +38,15 @@ const DobCalculator = () => {
     setDate2(undefined);
     setResult(null);
     setShowResult(false);
+    setSign1("");
+    setSign2("");
   };
 
-  const loveData = result ? getLoveMessage(result) : null;
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20">
+    <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20 flex flex-col">
       <Header />
       
-      <main className="container py-12">
+      <main className="container py-12 flex-grow">
         <article>
           {/* SEO Header */}
           <header className="mb-12 text-center">
@@ -46,7 +54,7 @@ const DobCalculator = () => {
               Love Calculator by Birth Date
             </h1>
             <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-              Calculate love compatibility using birthdates. Select two birth dates below to discover your romantic match percentage based on numerology!
+              Calculate love compatibility using birthdates. Select two birth dates below to discover your romantic match percentage based on astrology!
             </p>
           </header>
 
@@ -165,20 +173,29 @@ const DobCalculator = () => {
                 </CardHeader>
                 
                 <CardContent className="relative z-10">
-                  {showResult && result !== null && loveData ? (
+                  {showResult && result !== null ? (
                     <div className="space-y-6 animate-fadeInUp">
                       <div className="text-center">
                         <div className="mb-4 text-7xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                           {result}%
                         </div>
-                        <h3 className="mb-2 text-2xl font-semibold">{loveData.title}</h3>
-                        <p className="text-muted-foreground">{loveData.message}</p>
+                        <h3 className="mb-2 text-2xl font-semibold">A Cosmic Connection!</h3>
+                        <p className="text-muted-foreground">Your zodiac signs, {sign1} and {sign2}, have a special bond.</p>
                       </div>
 
                       <div className="rounded-lg bg-secondary/50 p-4 text-center backdrop-blur-sm">
                         <p className="text-sm font-medium">
                           {date1 && format(date1, "MMM dd, yyyy")} 💕 {date2 && format(date2, "MMM dd, yyyy")}
                         </p>
+                      </div>
+
+                      <div className="flex justify-center">
+                        <Link to={`/generate-card?sign1=${sign1}&sign2=${sign2}&percentage=${result}`}>
+                          <Button variant="romantic" size="lg">
+                            <Download className="mr-2 h-5 w-5" />
+                            Generate Card
+                          </Button>
+                        </Link>
                       </div>
                     </div>
                   ) : (
@@ -204,22 +221,22 @@ const DobCalculator = () => {
               </CardHeader>
               <CardContent className="prose prose-sm max-w-none text-muted-foreground">
                 <p>
-                  Our birthdate love calculator uses numerological principles to analyze the compatibility between 
-                  two people based on their dates of birth. By calculating life path numbers and comparing them, 
+                  Our birthdate love calculator uses astrological principles to analyze the compatibility between 
+                  two people based on their dates of birth. By comparing their zodiac signs, 
                   we generate a personalized love percentage that reflects your romantic compatibility.
                 </p>
                 <h3 className="font-semibold text-foreground">Features of Our Date Calculator:</h3>
                 <ul>
-                  <li>Numerology-based compatibility calculation</li>
+                  <li>Astrology-based compatibility calculation</li>
                   <li>More personalized than name-based calculations</li>
                   <li>Easy-to-use calendar interface for date selection</li>
                   <li>Instant results with detailed interpretations</li>
                   <li>Free unlimited tests with no registration</li>
                 </ul>
-                <h3 className="font-semibold text-foreground">Understanding Numerology in Love:</h3>
+                <h3 className="font-semibold text-foreground">Understanding Astrology in Love:</h3>
                 <p>
-                  Numerology has been used for centuries to understand relationships and compatibility. By reducing 
-                  birth dates to their core numbers, we can identify patterns and connections that might indicate 
+                  Astrology has been used for centuries to understand relationships and compatibility. By identifying 
+                  the zodiac signs, we can identify patterns and connections that might indicate 
                   romantic harmony. While this is a fun tool, remember that real relationships are built on 
                   communication, trust, and mutual respect!
                 </p>
@@ -228,6 +245,7 @@ const DobCalculator = () => {
           </section>
         </article>
       </main>
+      <Footer />
     </div>
   );
 };

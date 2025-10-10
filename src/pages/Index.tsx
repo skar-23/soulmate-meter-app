@@ -4,13 +4,29 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import Header from "@/components/Header";
 import heroImage from "@/assets/hero-love.jpg";
+import { Helmet } from "react-helmet-async";
+import Footer from "@/components/Footer";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20">
+    <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20 flex flex-col">
+      <Helmet>
+        <title>Love Calculator - Test Your Compatibility</title>
+        <meta name="description" content="Calculate your love compatibility with our free love calculator. Test by names or birth dates and discover your romantic destiny. Fun, fast, and free!" />
+        <meta name="keywords" content="love calculator, compatibility test, love test, name calculator, dob calculator, zodiac compatibility, relationship test, couple compatibility" />
+        <meta property="og:title" content="Love Calculator - Test Your Compatibility" />
+        <meta property="og:description" content="Calculate your love compatibility with our free love calculator. Test by names or birth dates and discover your romantic destiny. Fun, fast, and free!" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://your-website-url.com/" />
+        <meta property="og:image" content={heroImage} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Love Calculator - Test Your Compatibility" />
+        <meta name="twitter:description" content="Calculate your love compatibility with our free love calculator. Test by names or birth dates and discover your romantic destiny. Fun, fast, and free!" />
+        <meta name="twitter:image" content={heroImage} />
+      </Helmet>
       <Header />
       
-      <main>
+      <main className="flex-grow">
         {/* Hero Section */}
         <section className="relative overflow-hidden py-20 md:py-32">
           <div 
@@ -159,11 +175,7 @@ const Index = () => {
         </section>
       </main>
 
-      <footer className="border-t py-8">
-        <div className="container text-center text-sm text-muted-foreground">
-          <p>© 2024 Love Calculator. For entertainment purposes only.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };

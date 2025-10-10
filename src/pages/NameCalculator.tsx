@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Heart, Sparkles } from "lucide-react";
+import { Heart, Sparkles, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,7 +14,8 @@ import Header from "@/components/Header";
 import { useNavigate } from "react-router-dom";
 import { calculateLoveByNames, getLoveMessage } from "@/utils/loveCalculator";
 import namesBg from "@/assets/names-bg.jpg";
-import { useRef } from "react";
+import { Helmet } from "react-helmet-async";
+import Footer from "@/components/Footer";
 
 const NameCalculator = () => {
   const [name1, setName1] = useState("");
@@ -22,6 +23,7 @@ const NameCalculator = () => {
   const [result, setResult] = useState<number | null>(null);
   const [resultSwapped, setResultSwapped] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
+  const navigate = useNavigate();
 
   const handleCalculate = () => {
     if (name1.trim() && name2.trim()) {
@@ -40,120 +42,17 @@ const NameCalculator = () => {
     setShowResult(false);
   };
 
+  const generateCard = () => {
+    if (!name1.trim() || !name2.trim() || result === null) return;
+    const maxPerc = Math.max(result, resultSwapped ?? 0);
+    navigate(
+      `/generate-card?name1=${encodeURIComponent(
+        name1
+      )}&name2=${encodeURIComponent(name2)}&percentage=${maxPerc}`
+    );
+  };
+
   const loveData = result ? getLoveMessage(result) : null;
-  const loveDataSwapped = resultSwapped ? getLoveMessage(resultSwapped) : null;
-
-  const cardRef = useRef<HTMLDivElement | null>(null);
-
-  // Helper: convert dataURL to Blob
-  const dataURLToBlob = (dataURL: string) => {
-    const parts = dataURL.split(",");
-    const mime = parts[0].match(/:(.*?);/)![1];
-    const binary = atob(parts[1]);
-    const array = [] as number[];
-    for (let i = 0; i < binary.length; i++) array.push(binary.charCodeAt(i));
-    return new Blob([new Uint8Array(array)], { type: mime });
-  };
-
-  // Generate a shareable image (1200x630) and return dataURL
-  const renderCardImage = (
-    a: string,
-    b: string,
-    score: number,
-    scoreRev: number,
-    dominant: string
-  ) => {
-    const w = 1200;
-    const h = 630;
-    const canvas = document.createElement("canvas");
-    canvas.width = w;
-    canvas.height = h;
-    const ctx = canvas.getContext("2d")!;
-
-    // background gradient
-    const grad = ctx.createLinearGradient(0, 0, w, h);
-    grad.addColorStop(0, "rgba(59,130,246,0.12)");
-    grad.addColorStop(1, "rgba(236,72,153,0.12)");
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, w, h);
-
-    // card inner panel
-    ctx.fillStyle = "rgba(255,255,255,0.94)";
-    const pad = 60;
-    const radius = 24;
-    // rounded rect
-    ctx.beginPath();
-    ctx.moveTo(pad + radius, pad);
-    ctx.arcTo(w - pad, pad, w - pad, h - pad, radius);
-    ctx.arcTo(w - pad, h - pad, pad, h - pad, radius);
-    ctx.arcTo(pad, h - pad, pad, pad, radius);
-    ctx.arcTo(pad, pad, w - pad, pad, radius);
-    ctx.closePath();
-    ctx.fill();
-
-    // Title
-    ctx.fillStyle = "#0f1724";
-    ctx.font = "bold 36px Inter, system-ui";
-    ctx.textAlign = "center";
-    ctx.fillText("Love Calculator Result", w / 2, pad + 60);
-
-    // Draw main score
-    ctx.fillStyle = "#111827";
-    ctx.font = "900 140px Inter, system-ui";
-    ctx.fillText(score + "%", w / 2, h / 2 + 30);
-
-    // Names
-    ctx.font = "600 28px Inter, system-ui";
-    ctx.fillStyle = "#374151";
-    ctx.fillText(`${a} + ${b}`, w / 2, h / 2 + 110);
-
-    // Reversed score small
-    ctx.font = "600 36px Inter, system-ui";
-    ctx.fillStyle = "#6b7280";
-    ctx.fillText(`Reversed: ${scoreRev}%`, w / 2, h - pad - 60);
-
-    // Dominance badge
-    ctx.fillStyle = "#ef4444";
-    ctx.font = "700 20px Inter, system-ui";
-    ctx.fillText(dominant, w / 2, h - pad - 20);
-
-    return canvas.toDataURL("image/png");
-  };
-
-  const downloadCard = () => {
-    // Redirect to the client-side generator page which uses the template.
-    // Use the maximum of the two calculated percentages so the displayed number is the maximum case.
-    if (
-      !name1.trim() ||
-      !name2.trim() ||
-      result == null ||
-      resultSwapped == null
-    )
-      return;
-    const maxPerc = Math.max(result, resultSwapped);
-    navigate(
-      `/generate-card?name1=${encodeURIComponent(
-        name1
-      )}&name2=${encodeURIComponent(name2)}&percentage=${maxPerc}&download=1`
-    );
-  };
-
-  const shareCard = async () => {
-    if (
-      !name1.trim() ||
-      !name2.trim() ||
-      result == null ||
-      resultSwapped == null
-    )
-      return;
-    const maxPerc = Math.max(result, resultSwapped);
-    // Route to the generator page and request share
-    navigate(
-      `/generate-card?name1=${encodeURIComponent(
-        name1
-      )}&name2=${encodeURIComponent(name2)}&percentage=${maxPerc}&share=1`
-    );
-  };
 
   const getDominanceText = () => {
     if (result == null || resultSwapped == null) return null;
@@ -164,13 +63,25 @@ const NameCalculator = () => {
     return `Both names show equal influence.`;
   };
 
-  const navigate = useNavigate();
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20">
+    <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20 flex flex-col">
+      <Helmet>
+        <title>Love Calculator by Names - Free Compatibility Test</title>
+        <meta name="description" content="Calculate love compatibility using names. Enter two names to discover your romantic match percentage instantly with our free online love calculator." />
+        <meta name="keywords" content="love calculator by name, name compatibility, love test by name, couple name calculator, free love test, relationship calculator" />
+        <meta property="og:title" content="Love Calculator by Names - Free Compatibility Test" />
+        <meta property="og:description" content="Calculate love compatibility using names. Enter two names to discover your romantic match percentage instantly with our free online love calculator." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://your-website-url.com/name-calculator" />
+        <meta property="og:image" content={namesBg} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Love Calculator by Names - Free Compatibility Test" />
+        <meta name="twitter:description" content="Calculate love compatibility using names. Enter two names to discover your romantic match percentage instantly with our free online love calculator." />
+        <meta name="twitter:image" content={namesBg} />
+      </Helmet>
       <Header />
 
-      <main className="container py-12">
+      <main className="container py-12 flex-grow">
         <article>
           {/* SEO Header */}
           <header className="mb-12 text-center">
@@ -241,9 +152,8 @@ const NameCalculator = () => {
                 </CardContent>
               </Card>
 
-              {/* Result Card (in-place highlighted with share/download actions) */}
+              {/* Result Card (in-place highlighted) */}
               <Card
-                ref={cardRef}
                 className={
                   "relative overflow-hidden border-accent/20 transition-shadow duration-200 " +
                   (showResult
@@ -313,59 +223,13 @@ const NameCalculator = () => {
                         </div>
 
                         <p className="mt-3 text-sm">{getDominanceText()}</p>
-                        <div className="mt-3 flex items-center justify-center gap-3">
-                          <Button
-                            onClick={() => {
-                              // swap names in inputs and recalculate
-                              const n1 = name1;
-                              const n2 = name2;
-                              setName1(n2);
-                              setName2(n1);
-                              // recalc after swap
-                              const p = calculateLoveByNames(n2, n1);
-                              const ps = calculateLoveByNames(n1, n2);
-                              setResult(p);
-                              setResultSwapped(ps);
-                            }}
-                            variant="secondary"
-                            size="sm"
-                          >
-                            Swap Names
-                          </Button>
-                        </div>
                       </div>
 
-                      <div className="rounded-lg bg-secondary/50 p-4 text-center backdrop-blur-sm">
-                        <p className="text-sm font-medium">
-                          {name1} 💕 {name2}
-                        </p>
-                        <div className="mt-3 flex items-center justify-center gap-2">
-                          <Button
-                            onClick={() => downloadCard()}
-                            variant="outline"
-                            size="sm"
-                          >
-                            Download Card
-                          </Button>
-                          <Button
-                            onClick={() => shareCard()}
-                            variant="outline"
-                            size="sm"
-                          >
-                            Share
-                          </Button>
-                          <Button
-                            onClick={() => {
-                              navigator.clipboard?.writeText(
-                                `${name1} + ${name2} = ${result}%`
-                              );
-                            }}
-                            variant="ghost"
-                            size="sm"
-                          >
-                            Copy
-                          </Button>
-                        </div>
+                      <div className="flex justify-center">
+                        <Button onClick={generateCard} variant="romantic" size="lg">
+                          <Download className="mr-2 h-5 w-5" />
+                          Generate Card
+                        </Button>
                       </div>
                     </div>
                   ) : (
@@ -418,6 +282,7 @@ const NameCalculator = () => {
           </section>
         </article>
       </main>
+      <Footer />
     </div>
   );
 };
