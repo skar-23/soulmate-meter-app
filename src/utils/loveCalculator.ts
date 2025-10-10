@@ -1,4 +1,4 @@
-// Love calculator algorithm based on names
+// Love calculator algorithm based on names (optimized for positive results)
 export const calculateLoveByNames = (name1: string, name2: string): number => {
   // Clean and normalize names
   const cleanName1 = name1.toLowerCase().replace(/[^a-z]/g, '');
@@ -35,15 +35,24 @@ export const calculateLoveByNames = (name1: string, name2: string): number => {
     numbers = newNumbers.join('');
   }
   
-  // Convert to percentage (ensure it's between 1 and 99)
+  // Convert to percentage with optimistic boost
   let percentage = parseInt(numbers);
   if (percentage > 99) percentage = percentage % 100;
   if (percentage === 0) percentage = 50 + (cleanName1.length + cleanName2.length) % 50;
   
+  // Boost lower scores to be more positive (minimum 45%)
+  if (percentage < 45) {
+    percentage = 45 + (percentage % 30);
+  }
+  
+  // Add a small random boost for variety (0-15%)
+  const boost = Math.floor(Math.random() * 16);
+  percentage = Math.min(99, percentage + boost);
+  
   return percentage;
 };
 
-// Love calculator algorithm based on dates of birth
+// Love calculator algorithm based on dates of birth (optimized for positive results)
 export const calculateLoveByDates = (date1: Date, date2: Date): number => {
   // Extract day, month, year
   const d1 = date1.getDate();
@@ -65,22 +74,27 @@ export const calculateLoveByDates = (date1: Date, date2: Date): number => {
   const lifePath1 = reduceToSingle(d1 + m1 + y1);
   const lifePath2 = reduceToSingle(d2 + m2 + y2);
   
-  // Calculate compatibility
+  // Calculate compatibility with positive bias
   const diff = Math.abs(lifePath1 - lifePath2);
   const sum = lifePath1 + lifePath2;
   
   // Generate percentage based on numerological compatibility
-  let percentage = 100 - (diff * 10);
+  let percentage = 100 - (diff * 8); // Reduced penalty for differences
   percentage = percentage + (sum % 20);
   
-  // Adjust to reasonable range
-  if (percentage > 99) percentage = 99;
-  if (percentage < 1) percentage = 1;
+  // Ensure minimum of 50% for positivity
+  if (percentage < 50) {
+    percentage = 50 + (percentage % 25);
+  }
+  
+  // Add small boost for variety (0-12%)
+  const boost = Math.floor(Math.random() * 13);
+  percentage = Math.min(99, percentage + boost);
   
   return Math.round(percentage);
 };
 
-// Get love message based on percentage
+// Get love message based on percentage (more encouraging messages)
 export const getLoveMessage = (percentage: number): { title: string; message: string; emoji: string } => {
   if (percentage >= 90) {
     return {
@@ -100,23 +114,17 @@ export const getLoveMessage = (percentage: number): { title: string; message: st
       message: "Good compatibility! You share a meaningful bond with potential to grow.",
       emoji: "💗"
     };
-  } else if (percentage >= 45) {
+  } else if (percentage >= 50) {
     return {
-      title: "Moderate Match 💓",
-      message: "There's definitely something here! With effort, this could blossom beautifully.",
+      title: "Great Potential! 💓",
+      message: "There's definitely something special here! This relationship has wonderful potential.",
       emoji: "💓"
-    };
-  } else if (percentage >= 30) {
-    return {
-      title: "Room for Growth 💝",
-      message: "You have some differences, but opposites can attract! Keep an open mind.",
-      emoji: "💝"
     };
   } else {
     return {
-      title: "Challenging Match 💔",
-      message: "This might need extra work, but true love conquers all challenges!",
-      emoji: "💔"
+      title: "Promising Start! 💝",
+      message: "Every great love story starts somewhere! You have a solid foundation to build on.",
+      emoji: "💝"
     };
   }
 };
