@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import NameCalculator from "./pages/NameCalculator";
 import DobCalculator from "./pages/DobCalculator";
 import NotFound from "./pages/NotFound";
+import GenerateCard from "./pages/GenerateCard";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/name-calculator" element={<NameCalculator />} />
+          <Route path="/generate-card" element={<GenerateCard />} />
           <Route path="/dob-calculator" element={<DobCalculator />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
