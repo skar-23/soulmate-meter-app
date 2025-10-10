@@ -1,0 +1,235 @@
+import { useState } from "react";
+import { Heart, Calendar as CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import Header from "@/components/Header";
+import { calculateLoveByDates, getLoveMessage } from "@/utils/loveCalculator";
+import { cn } from "@/lib/utils";
+import dobBg from "@/assets/dob-bg.jpg";
+
+const DobCalculator = () => {
+  const [date1, setDate1] = useState<Date>();
+  const [date2, setDate2] = useState<Date>();
+  const [result, setResult] = useState<number | null>(null);
+  const [showResult, setShowResult] = useState(false);
+
+  const handleCalculate = () => {
+    if (date1 && date2) {
+      const percentage = calculateLoveByDates(date1, date2);
+      setResult(percentage);
+      setShowResult(true);
+    }
+  };
+
+  const handleReset = () => {
+    setDate1(undefined);
+    setDate2(undefined);
+    setResult(null);
+    setShowResult(false);
+  };
+
+  const loveData = result ? getLoveMessage(result) : null;
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20">
+      <Header />
+      
+      <main className="container py-12">
+        <article>
+          {/* SEO Header */}
+          <header className="mb-12 text-center">
+            <h1 className="mb-4 text-4xl font-bold tracking-tight md:text-5xl">
+              Love Calculator by Birth Date
+            </h1>
+            <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
+              Calculate love compatibility using birthdates. Select two birth dates below to discover your romantic match percentage based on numerology!
+            </p>
+          </header>
+
+          {/* Calculator Section */}
+          <section className="mx-auto max-w-4xl">
+            <div className="grid gap-8 md:grid-cols-2">
+              {/* Input Card */}
+              <Card className="border-primary/20">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <CalendarIcon className="h-5 w-5 text-primary" />
+                    Select Birth Dates
+                  </CardTitle>
+                  <CardDescription>
+                    Choose the birth dates of both people to calculate compatibility
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="space-y-2">
+                    <Label>First Person's Birth Date</Label>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className={cn(
+                            "w-full justify-start text-left font-normal",
+                            !date1 && "text-muted-foreground"
+                          )}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {date1 ? format(date1, "PPP") : "Pick a date"}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={date1}
+                          onSelect={setDate1}
+                          initialFocus
+                          captionLayout="dropdown-buttons"
+                          fromYear={1920}
+                          toYear={new Date().getFullYear()}
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label>Second Person's Birth Date</Label>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className={cn(
+                            "w-full justify-start text-left font-normal",
+                            !date2 && "text-muted-foreground"
+                          )}
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {date2 ? format(date2, "PPP") : "Pick a date"}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={date2}
+                          onSelect={setDate2}
+                          initialFocus
+                          captionLayout="dropdown-buttons"
+                          fromYear={1920}
+                          toYear={new Date().getFullYear()}
+                        />
+                      </PopoverContent>
+                    </Popover>
+                  </div>
+
+                  <div className="flex gap-3">
+                    <Button
+                      onClick={handleCalculate}
+                      disabled={!date1 || !date2}
+                      variant="romantic"
+                      className="flex-1"
+                      size="lg"
+                    >
+                      <Heart className="mr-2 h-5 w-5" />
+                      Calculate Love
+                    </Button>
+                    {showResult && (
+                      <Button onClick={handleReset} variant="outline" size="lg">
+                        Reset
+                      </Button>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Result Card */}
+              <Card 
+                className="relative overflow-hidden border-accent/20"
+                style={{
+                  backgroundImage: `url(${dobBg})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: 'center'
+                }}
+              >
+                <div className="absolute inset-0 bg-background/90 backdrop-blur-sm" />
+                
+                <CardHeader className="relative z-10">
+                  <CardTitle className="flex items-center gap-2">
+                    <Heart className="h-5 w-5 fill-primary text-primary animate-heartbeat" />
+                    Love Percentage Result
+                  </CardTitle>
+                  <CardDescription>
+                    {showResult ? "Your compatibility score" : "Results will appear here"}
+                  </CardDescription>
+                </CardHeader>
+                
+                <CardContent className="relative z-10">
+                  {showResult && result !== null && loveData ? (
+                    <div className="space-y-6 animate-fadeInUp">
+                      <div className="text-center">
+                        <div className="mb-4 text-7xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                          {result}%
+                        </div>
+                        <h3 className="mb-2 text-2xl font-semibold">{loveData.title}</h3>
+                        <p className="text-muted-foreground">{loveData.message}</p>
+                      </div>
+
+                      <div className="rounded-lg bg-secondary/50 p-4 text-center backdrop-blur-sm">
+                        <p className="text-sm font-medium">
+                          {date1 && format(date1, "MMM dd, yyyy")} 💕 {date2 && format(date2, "MMM dd, yyyy")}
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex h-64 items-center justify-center text-center">
+                      <div className="space-y-3">
+                        <Heart className="mx-auto h-16 w-16 text-muted-foreground/30" />
+                        <p className="text-muted-foreground">
+                          Select two birth dates and click Calculate to see your love percentage!
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
+          </section>
+
+          {/* SEO Content */}
+          <section className="mx-auto mt-16 max-w-3xl">
+            <Card>
+              <CardHeader>
+                <CardTitle>How Does the Birthdate Love Calculator Work?</CardTitle>
+              </CardHeader>
+              <CardContent className="prose prose-sm max-w-none text-muted-foreground">
+                <p>
+                  Our birthdate love calculator uses numerological principles to analyze the compatibility between 
+                  two people based on their dates of birth. By calculating life path numbers and comparing them, 
+                  we generate a personalized love percentage that reflects your romantic compatibility.
+                </p>
+                <h3 className="font-semibold text-foreground">Features of Our Date Calculator:</h3>
+                <ul>
+                  <li>Numerology-based compatibility calculation</li>
+                  <li>More personalized than name-based calculations</li>
+                  <li>Easy-to-use calendar interface for date selection</li>
+                  <li>Instant results with detailed interpretations</li>
+                  <li>Free unlimited tests with no registration</li>
+                </ul>
+                <h3 className="font-semibold text-foreground">Understanding Numerology in Love:</h3>
+                <p>
+                  Numerology has been used for centuries to understand relationships and compatibility. By reducing 
+                  birth dates to their core numbers, we can identify patterns and connections that might indicate 
+                  romantic harmony. While this is a fun tool, remember that real relationships are built on 
+                  communication, trust, and mutual respect!
+                </p>
+              </CardContent>
+            </Card>
+          </section>
+        </article>
+      </main>
+    </div>
+  );
+};
+
+export default DobCalculator;
