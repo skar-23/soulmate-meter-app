@@ -26,7 +26,7 @@ const ContactUs = () => {
 
     // Prepare payload for Web3Forms
     const payload = {
-      access_key: import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "",
+      access_key:"45c74fe3-651b-4c8a-9b14-e08559d14718",
       name: data.name,
       email: data.email,
       subject: data.subject,
@@ -82,7 +82,7 @@ const ContactUs = () => {
                 <input
                   type="hidden"
                   name="access_key"
-                  value={import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || ""}
+                  value="45c74fe3-651b-4c8a-9b14-e08559d14718"
                 />
                 {/* Honeypot field - keep hidden from users; bots may fill it */}
                 <input
