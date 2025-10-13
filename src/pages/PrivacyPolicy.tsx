@@ -10,11 +10,11 @@ const PrivacyPolicy = () => {
         <section className="mx-auto max-w-3xl">
           <Card>
             <CardHeader>
-              <CardTitle className="text-3xl">Privacy Policy</CardTitle>
+              <CardTitle className="text-3xl">Privacy Policy for Skar Love Calculator</CardTitle>
             </CardHeader>
             <CardContent className="prose prose-sm max-w-none text-muted-foreground">
               <p>
-                Your privacy is important to us. It is our policy to respect your privacy regarding any information we may collect from you across our website.
+                Your privacy is important to us. It is Skar Love Calculator's policy to respect your privacy regarding any information we may collect from you across our website, https://skarlovecalculator.app, and other sites we own and operate.
               </p>
               <p>
                 We only ask for personal information when we truly need it to provide a service to you. We collect it by fair and lawful means, with your knowledge and consent. We also let you know why we’re collecting it and how it will be used.
@@ -32,7 +32,7 @@ const PrivacyPolicy = () => {
                 You are free to refuse our request for your personal information, with the understanding that we may be unable to provide you with some of your desired services.
               </p>
               <p>
-                Your continued use of our website will be regarded as acceptance of our practices around privacy and personal information. If you have any questions about how we handle user data and personal information, feel free to contact us.
+                Your continued use of our website will be regarded as acceptance of our practices around privacy and personal information. If you have any questions about how we handle user data and personal information, feel free to contact us at contact@skarlovecalculator.app.
               </p>
             </CardContent>
           </Card>

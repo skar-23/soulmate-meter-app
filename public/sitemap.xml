@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://lovable.dev/projects/52db672e-8274-44f7-997f-498de9157e20/</loc>
+    <loc>https://skarlovecalculator.app/</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://lovable.dev/projects/52db672e-8274-44f7-997f-498de9157e20/name-calculator</loc>
+    <loc>https://skarlovecalculator.app/name-calculator</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://lovable.dev/projects/52db672e-8274-44f7-997f-498de9157e20/dob-calculator</loc>
+    <loc>https://skarlovecalculator.app/dob-calculator</loc>
     <lastmod>2024-01-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

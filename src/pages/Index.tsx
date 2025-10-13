@@ -11,17 +11,17 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20 flex flex-col">
       <Helmet>
-        <title>Love Calculator - Test Your Compatibility</title>
-        <meta name="description" content="Calculate your love compatibility with our free love calculator. Test by names or birth dates and discover your romantic destiny. Fun, fast, and free!" />
-        <meta name="keywords" content="love calculator, compatibility test, love test, name calculator, dob calculator, zodiac compatibility, relationship test, couple compatibility" />
-        <meta property="og:title" content="Love Calculator - Test Your Compatibility" />
-        <meta property="og:description" content="Calculate your love compatibility with our free love calculator. Test by names or birth dates and discover your romantic destiny. Fun, fast, and free!" />
+        <title>Skar Love Calculator - Test Your Love Compatibility</title>
+        <meta name="description" content="Calculate your love compatibility with Skar Love Calculator, our free love calculator. Test by names or birth dates and discover your romantic destiny. Fun, fast, and free!" />
+        <meta name="keywords" content="skar love calculator, love calculator, compatibility test, love test, name calculator, dob calculator, zodiac compatibility, relationship test, couple compatibility" />
+        <meta property="og:title" content="Skar Love Calculator - Test Your Love Compatibility" />
+        <meta property="og:description" content="Calculate your love compatibility with Skar Love Calculator, our free love calculator. Test by names or birth dates and discover your romantic destiny. Fun, fast, and free!" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://your-website-url.com/" />
+        <meta property="og:url" content="https://skarlovecalculator.app/" />
         <meta property="og:image" content={heroImage} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Love Calculator - Test Your Compatibility" />
-        <meta name="twitter:description" content="Calculate your love compatibility with our free love calculator. Test by names or birth dates and discover your romantic destiny. Fun, fast, and free!" />
+        <meta name="twitter:title" content="Skar Love Calculator - Test Your Love Compatibility" />
+        <meta name="twitter:description" content="Calculate your love compatibility with Skar Love Calculator, our free love calculator. Test by names or birth dates and discover your romantic destiny. Fun, fast, and free!" />
         <meta name="twitter:image" content={heroImage} />
       </Helmet>
       <Header />
@@ -45,9 +45,9 @@ const Index = () => {
               </div>
               
               <h1 className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-                Discover Your Love
+                Skar Love Calculator
                 <span className="block bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                  Compatibility Score
+                  Discover Your Compatibility Score
                 </span>
               </h1>
               
@@ -79,7 +79,7 @@ const Index = () => {
         <section className="py-20 bg-background">
           <div className="container">
             <h2 className="mb-12 text-center text-3xl font-bold">
-              How It Works
+              How Skar Love Calculator Works
             </h2>
             
             <div className="grid gap-8 md:grid-cols-3">
@@ -162,7 +162,7 @@ const Index = () => {
                 compatibility based on numerological principles, providing insights into your romantic match.
               </p>
 
-              <h3 className="text-2xl font-semibold mb-4">Why Use a Love Calculator?</h3>
+              <h3 className="text-2xl font-semibold mb-4">Why Use Skar Love Calculator?</h3>
               <ul className="list-disc pl-6 text-muted-foreground space-y-2">
                 <li>Fun way to break the ice with someone special</li>
                 <li>Entertainment for parties and social gatherings</li>

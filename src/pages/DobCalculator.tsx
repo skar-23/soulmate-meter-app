@@ -11,6 +11,7 @@ import Header from "@/components/Header";
 import { getZodiacSign, getZodiacCompatibility } from "@/utils/zodiac";
 import { cn } from "@/lib/utils";
 import dobBg from "@/assets/dob-bg.jpg";
+import { Helmet } from "react-helmet-async";
 import Footer from "@/components/Footer";
 
 const DobCalculator = () => {
@@ -44,6 +45,20 @@ const DobCalculator = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20 flex flex-col">
+      <Helmet>
+        <title>Skar Love Calculator by Birth Date - Zodiac Compatibility</title>
+        <meta name="description" content="Calculate love compatibility using birth dates with Skar Love Calculator. Select two birth dates to discover your romantic match percentage based on astrology and zodiac signs." />
+        <meta name="keywords" content="skar love calculator by birth date, dob love calculator, zodiac compatibility, astrology love test, birthdate compatibility, free love test" />
+        <meta property="og:title" content="Skar Love Calculator by Birth Date - Zodiac Compatibility" />
+        <meta property="og:description" content="Calculate love compatibility using birth dates with Skar Love Calculator. Select two birth dates to discover your romantic match percentage based on astrology and zodiac signs." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://skarlovecalculator.app/dob-calculator" />
+        <meta property="og:image" content={dobBg} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Skar Love Calculator by Birth Date - Zodiac Compatibility" />
+        <meta name="twitter:description" content="Calculate love compatibility using birth dates with Skar Love Calculator. Select two birth dates to discover your romantic match percentage based on astrology and zodiac signs." />
+        <meta name="twitter:image" content={dobBg} />
+      </Helmet>
       <Header />
       
       <main className="container py-12 flex-grow">
@@ -51,7 +66,7 @@ const DobCalculator = () => {
           {/* SEO Header */}
           <header className="mb-12 text-center">
             <h1 className="mb-4 text-4xl font-bold tracking-tight md:text-5xl">
-              Love Calculator by Birth Date
+              Skar Love Calculator by Birth Date
             </h1>
             <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
               Calculate love compatibility using birthdates. Select two birth dates below to discover your romantic match percentage based on astrology!
@@ -217,7 +232,7 @@ const DobCalculator = () => {
           <section className="mx-auto mt-16 max-w-3xl">
             <Card>
               <CardHeader>
-                <CardTitle>How Does the Birthdate Love Calculator Work?</CardTitle>
+                <CardTitle>How Does the Skar Love Calculator Work?</CardTitle>
               </CardHeader>
               <CardContent className="prose prose-sm max-w-none text-muted-foreground">
                 <p>

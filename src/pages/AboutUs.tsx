@@ -10,17 +10,17 @@ const AboutUs = () => {
         <section className="mx-auto max-w-3xl">
           <Card>
             <CardHeader>
-              <CardTitle className="text-3xl">About Us</CardTitle>
+              <CardTitle className="text-3xl">About Skar Love Calculator</CardTitle>
             </CardHeader>
             <CardContent className="prose prose-sm max-w-none text-muted-foreground">
               <p>
-                Welcome to our love calculator website! Our mission is to provide a fun and engaging way for people to explore their romantic compatibility with others. Whether you believe in the power of names, the wisdom of astrology, or the science of numerology, we have a calculator for you.
+                Welcome to Skar Love Calculator! Our mission is to provide a fun and engaging way for people to explore their romantic compatibility with others. Whether you believe in the power of names or the wisdom of astrology, we have a calculator for you.
               </p>
               <p>
                 Our team is passionate about helping people connect and understand each other better. We believe that our tools can be a starting point for meaningful conversations and relationships. While our calculators are meant for entertainment, we hope they bring a little bit of magic and fun into your life.
               </p>
               <p>
-                Thank you for visiting our website. We hope you enjoy our love calculators as much as we enjoyed creating them for you!
+                Thank you for visiting Skar Love Calculator. We hope you enjoy our love calculators as much as we enjoyed creating them for you!
               </p>
             </CardContent>
           </Card>

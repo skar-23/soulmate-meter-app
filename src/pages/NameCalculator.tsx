@@ -66,17 +66,17 @@ const NameCalculator = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20 flex flex-col">
       <Helmet>
-        <title>Love Calculator by Names - Free Compatibility Test</title>
-        <meta name="description" content="Calculate love compatibility using names. Enter two names to discover your romantic match percentage instantly with our free online love calculator." />
-        <meta name="keywords" content="love calculator by name, name compatibility, love test by name, couple name calculator, free love test, relationship calculator" />
-        <meta property="og:title" content="Love Calculator by Names - Free Compatibility Test" />
-        <meta property="og:description" content="Calculate love compatibility using names. Enter two names to discover your romantic match percentage instantly with our free online love calculator." />
+        <title>Skar Love Calculator by Names - Free Compatibility Test</title>
+        <meta name="description" content="Calculate love compatibility using names with Skar Love Calculator. Enter two names to discover your romantic match percentage instantly with our free online love calculator." />
+        <meta name="keywords" content="skar love calculator by name, name compatibility, love test by name, couple name calculator, free love test, relationship calculator" />
+        <meta property="og:title" content="Skar Love Calculator by Names - Free Compatibility Test" />
+        <meta property="og:description" content="Calculate love compatibility using names with Skar Love Calculator. Enter two names to discover your romantic match percentage instantly with our free online love calculator." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://your-website-url.com/name-calculator" />
+        <meta property="og:url" content="https://skarlovecalculator.app/name-calculator" />
         <meta property="og:image" content={namesBg} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Love Calculator by Names - Free Compatibility Test" />
-        <meta name="twitter:description" content="Calculate love compatibility using names. Enter two names to discover your romantic match percentage instantly with our free online love calculator." />
+        <meta name="twitter:title" content="Skar Love Calculator by Names - Free Compatibility Test" />
+        <meta name="twitter:description" content="Calculate love compatibility using names with Skar Love Calculator. Enter two names to discover your romantic match percentage instantly with our free online love calculator." />
         <meta name="twitter:image" content={namesBg} />
       </Helmet>
       <Header />
@@ -86,7 +86,7 @@ const NameCalculator = () => {
           {/* SEO Header */}
           <header className="mb-12 text-center">
             <h1 className="mb-4 text-4xl font-bold tracking-tight md:text-5xl">
-              Love Calculator by Names
+              Skar Love Calculator by Names
             </h1>
             <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
               Calculate love compatibility using names. Enter two names below to
@@ -252,7 +252,7 @@ const NameCalculator = () => {
           <section className="mx-auto mt-16 max-w-3xl">
             <Card>
               <CardHeader>
-                <CardTitle>How Does the Name Love Calculator Work?</CardTitle>
+                <CardTitle>How Does the Skar Love Calculator Work?</CardTitle>
               </CardHeader>
               <CardContent className="prose prose-sm max-w-none text-muted-foreground">
                 <p>
