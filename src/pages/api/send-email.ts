@@ -1,42 +1,33 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
+
 import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const toEmail = process.env.RESEND_TO_EMAIL;
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handler(req, res) {
   if (req.method === 'POST') {
+    // The request body is automatically parsed by Vercel
     const { name, email, subject, message } = req.body;
-
-    if (!name || !email || !subject || !message) {
-      return res.status(400).json({ error: 'All fields are required.' });
-    }
-
-    if (!toEmail) {
-      console.error("Critical: RESEND_TO_EMAIL environment variable is not set. Email cannot be sent.");
-      return res.status(500).json({ error: 'The server is not configured to send emails.' });
-    }
 
     try {
       await resend.emails.send({
         from: 'onboarding@resend.dev',
-        to: toEmail,
-        subject: `Contact Form: ${subject}`,
-        html: `<p>You have a new contact form submission</p><br>
-        <p><strong>Name: </strong> ${name}</p>
-        <p><strong>Email: </strong> ${email}</p>
-        <p><strong>Message: </strong> ${message}</p>`,
+        to: 'contactskarlove@gmail.com',
+        subject: `New Contact Form Submission: ${subject}`,
+        html: `<p>You have a new submission from:</p>
+               <p><strong>Name:</strong> ${name}</p>
+               <p><strong>Email:</strong> ${email}</p>
+               <p><strong>Message:</strong> ${message}</p>`,
       });
 
-      res.status(200).json({ message: 'Message sent successfully!' });
+      // Send a success response
+      res.status(200).json({ message: 'Email sent successfully' });
     } catch (error) {
-      console.error('Error sending email:', error);
-      res.status(500).json({ error: 'An error occurred while sending the message.' });
+      console.error('Resend API Error:', error);
+      // Send an error response
+      res.status(500).json({ message: 'Failed to send email' });
     }
   } else {
+    // Handle any other HTTP method
     res.setHeader('Allow', ['POST']);
     res.status(405).end(`Method ${req.method} Not Allowed`);
   }

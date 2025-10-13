@@ -1,3 +1,5 @@
+
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -7,6 +9,40 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
 const ContactUs = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+
+    const formData = new FormData(event.currentTarget);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        // On successful submission, redirect to the thank-you page
+        window.location.href = '/thank-you';
+      } else {
+        // Handle server errors (e.g., API is down)
+        alert('Something went wrong. Please try again later.');
+        setIsSubmitting(false);
+      }
+    } catch (error) {
+      // Handle network errors
+      console.error("Form submission error:", error);
+      alert('An error occurred. Please check your connection and try again.');
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20 flex flex-col">
       <Header />
@@ -22,8 +58,7 @@ const ContactUs = () => {
                   Have questions or feedback about Skar Love Calculator? We'd love to hear from you! Fill out the form below and we'll get back to you as soon as possible.
                 </p>
               </div>
-              <form action="https://formsubmit.co/contactskarlove@gmail.com" method="POST" className="space-y-4">
-                <input type="hidden" name="_next" value="https://soulmate-meter-app-71516463.web.app/thank-you"></input>
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="name">Name</Label>
                   <Input
@@ -31,6 +66,7 @@ const ContactUs = () => {
                     name="name"
                     placeholder="Enter your name"
                     required
+                    disabled={isSubmitting}
                   />
                 </div>
                 <div className="space-y-2">
@@ -41,6 +77,7 @@ const ContactUs = () => {
                     name="email"
                     placeholder="Enter your email"
                     required
+                    disabled={isSubmitting}
                   />
                 </div>
                 <div className="space-y-2">
@@ -50,6 +87,7 @@ const ContactUs = () => {
                     name="subject"
                     placeholder="Enter the subject"
                     required
+                    disabled={isSubmitting}
                   />
                 </div>
                 <div className="space-y-2">
@@ -60,10 +98,11 @@ const ContactUs = () => {
                     placeholder="Enter your message"
                     className="min-h-[100px]"
                     required
+                    disabled={isSubmitting}
                   />
                 </div>
-                <Button type="submit" size="lg" className="w-full">
-                  Send Message
+                <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
                 </Button>
               </form>
             </CardContent>
