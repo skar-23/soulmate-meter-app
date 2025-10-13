@@ -4,9 +4,19 @@ import { Heart, Calendar as CalendarIcon, Download } from "lucide-react";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import Header from "@/components/Header";
 import { getZodiacSign, getZodiacCompatibility } from "@/utils/zodiac";
 import { cn } from "@/lib/utils";
@@ -47,20 +57,41 @@ const DobCalculator = () => {
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20 flex flex-col">
       <Helmet>
         <title>Skar Love Calculator by Birth Date - Zodiac Compatibility</title>
-        <meta name="description" content="Calculate love compatibility using birth dates with Skar Love Calculator. Select two birth dates to discover your romantic match percentage based on astrology and zodiac signs." />
-        <meta name="keywords" content="skar love calculator by birth date, dob love calculator, zodiac compatibility, astrology love test, birthdate compatibility, free love test" />
-        <meta property="og:title" content="Skar Love Calculator by Birth Date - Zodiac Compatibility" />
-        <meta property="og:description" content="Calculate love compatibility using birth dates with Skar Love Calculator. Select two birth dates to discover your romantic match percentage based on astrology and zodiac signs." />
+        <meta
+          name="description"
+          content="Calculate love compatibility using birth dates with Skar Love Calculator. Select two birth dates to discover your romantic match percentage based on astrology and zodiac signs."
+        />
+        <meta
+          name="keywords"
+          content="skar love calculator by birth date, dob love calculator, zodiac compatibility, astrology love test, birthdate compatibility, free love test"
+        />
+        <meta
+          property="og:title"
+          content="Skar Love Calculator by Birth Date - Zodiac Compatibility"
+        />
+        <meta
+          property="og:description"
+          content="Calculate love compatibility using birth dates with Skar Love Calculator. Select two birth dates to discover your romantic match percentage based on astrology and zodiac signs."
+        />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://skarlovecalculator.app/dob-calculator" />
+        <meta
+          property="og:url"
+          content="https://skarlovecalculator.app/dob-calculator"
+        />
         <meta property="og:image" content={dobBg} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Skar Love Calculator by Birth Date - Zodiac Compatibility" />
-        <meta name="twitter:description" content="Calculate love compatibility using birth dates with Skar Love Calculator. Select two birth dates to discover your romantic match percentage based on astrology and zodiac signs." />
+        <meta
+          name="twitter:title"
+          content="Skar Love Calculator by Birth Date - Zodiac Compatibility"
+        />
+        <meta
+          name="twitter:description"
+          content="Calculate love compatibility using birth dates with Skar Love Calculator. Select two birth dates to discover your romantic match percentage based on astrology and zodiac signs."
+        />
         <meta name="twitter:image" content={dobBg} />
       </Helmet>
       <Header />
-      
+
       <main className="container py-12 flex-grow">
         <article>
           {/* SEO Header */}
@@ -69,7 +100,9 @@ const DobCalculator = () => {
               Skar Love Calculator by Birth Date
             </h1>
             <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-              Calculate love compatibility using birthdates. Select two birth dates below to discover your romantic match percentage based on astrology!
+              Calculate love compatibility using birthdates. Select two birth
+              dates below to discover your romantic match percentage based on
+              astrology!
             </p>
           </header>
 
@@ -84,7 +117,8 @@ const DobCalculator = () => {
                     Select Birth Dates
                   </CardTitle>
                   <CardDescription>
-                    Choose the birth dates of both people to calculate compatibility
+                    Choose the birth dates of both people to calculate
+                    compatibility
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-6">
@@ -103,7 +137,10 @@ const DobCalculator = () => {
                           {date1 ? format(date1, "PPP") : "Pick a date"}
                         </Button>
                       </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
+                      <PopoverContent
+                        className="w-auto p-0 sm:w-[320px] w-full max-w-sm"
+                        align="start"
+                      >
                         <Calendar
                           mode="single"
                           selected={date1}
@@ -132,7 +169,10 @@ const DobCalculator = () => {
                           {date2 ? format(date2, "PPP") : "Pick a date"}
                         </Button>
                       </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
+                      <PopoverContent
+                        className="w-auto p-0 sm:w-[320px] w-full max-w-sm"
+                        align="start"
+                      >
                         <Calendar
                           mode="single"
                           selected={date2}
@@ -167,26 +207,28 @@ const DobCalculator = () => {
               </Card>
 
               {/* Result Card */}
-              <Card 
+              <Card
                 className="relative overflow-hidden border-accent/20"
                 style={{
                   backgroundImage: `url(${dobBg})`,
-                  backgroundSize: 'cover',
-                  backgroundPosition: 'center'
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
                 }}
               >
                 <div className="absolute inset-0 bg-background/90 backdrop-blur-sm" />
-                
+
                 <CardHeader className="relative z-10">
                   <CardTitle className="flex items-center gap-2">
                     <Heart className="h-5 w-5 fill-primary text-primary animate-heartbeat" />
                     Love Percentage Result
                   </CardTitle>
                   <CardDescription>
-                    {showResult ? "Your compatibility score" : "Results will appear here"}
+                    {showResult
+                      ? "Your compatibility score"
+                      : "Results will appear here"}
                   </CardDescription>
                 </CardHeader>
-                
+
                 <CardContent className="relative z-10">
                   {showResult && result !== null ? (
                     <div className="space-y-6 animate-fadeInUp">
@@ -194,18 +236,26 @@ const DobCalculator = () => {
                         <div className="mb-4 text-7xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                           {result}%
                         </div>
-                        <h3 className="mb-2 text-2xl font-semibold">A Cosmic Connection!</h3>
-                        <p className="text-muted-foreground">Your zodiac signs, {sign1} and {sign2}, have a special bond.</p>
+                        <h3 className="mb-2 text-2xl font-semibold">
+                          A Cosmic Connection!
+                        </h3>
+                        <p className="text-muted-foreground">
+                          Your zodiac signs, {sign1} and {sign2}, have a special
+                          bond.
+                        </p>
                       </div>
 
                       <div className="rounded-lg bg-secondary/50 p-4 text-center backdrop-blur-sm">
                         <p className="text-sm font-medium">
-                          {date1 && format(date1, "MMM dd, yyyy")} 💕 {date2 && format(date2, "MMM dd, yyyy")}
+                          {date1 && format(date1, "MMM dd, yyyy")} 💕{" "}
+                          {date2 && format(date2, "MMM dd, yyyy")}
                         </p>
                       </div>
 
                       <div className="flex justify-center">
-                        <Link to={`/generate-card?sign1=${sign1}&sign2=${sign2}&percentage=${result}`}>
+                        <Link
+                          to={`/generate-card?sign1=${sign1}&sign2=${sign2}&percentage=${result}`}
+                        >
                           <Button variant="romantic" size="lg">
                             <Download className="mr-2 h-5 w-5" />
                             Generate Card
@@ -218,7 +268,8 @@ const DobCalculator = () => {
                       <div className="space-y-3">
                         <Heart className="mx-auto h-16 w-16 text-muted-foreground/30" />
                         <p className="text-muted-foreground">
-                          Select two birth dates and click Calculate to see your love percentage!
+                          Select two birth dates and click Calculate to see your
+                          love percentage!
                         </p>
                       </div>
                     </div>
@@ -236,11 +287,15 @@ const DobCalculator = () => {
               </CardHeader>
               <CardContent className="prose prose-sm max-w-none text-muted-foreground">
                 <p>
-                  Our birthdate love calculator uses astrological principles to analyze the compatibility between 
-                  two people based on their dates of birth. By comparing their zodiac signs, 
-                  we generate a personalized love percentage that reflects your romantic compatibility.
+                  Our birthdate love calculator uses astrological principles to
+                  analyze the compatibility between two people based on their
+                  dates of birth. By comparing their zodiac signs, we generate a
+                  personalized love percentage that reflects your romantic
+                  compatibility.
                 </p>
-                <h3 className="font-semibold text-foreground">Features of Our Date Calculator:</h3>
+                <h3 className="font-semibold text-foreground">
+                  Features of Our Date Calculator:
+                </h3>
                 <ul>
                   <li>Astrology-based compatibility calculation</li>
                   <li>More personalized than name-based calculations</li>
@@ -248,12 +303,16 @@ const DobCalculator = () => {
                   <li>Instant results with detailed interpretations</li>
                   <li>Free unlimited tests with no registration</li>
                 </ul>
-                <h3 className="font-semibold text-foreground">Understanding Astrology in Love:</h3>
+                <h3 className="font-semibold text-foreground">
+                  Understanding Astrology in Love:
+                </h3>
                 <p>
-                  Astrology has been used for centuries to understand relationships and compatibility. By identifying 
-                  the zodiac signs, we can identify patterns and connections that might indicate 
-                  romantic harmony. While this is a fun tool, remember that real relationships are built on 
-                  communication, trust, and mutual respect!
+                  Astrology has been used for centuries to understand
+                  relationships and compatibility. By identifying the zodiac
+                  signs, we can identify patterns and connections that might
+                  indicate romantic harmony. While this is a fun tool, remember
+                  that real relationships are built on communication, trust, and
+                  mutual respect!
                 </p>
               </CardContent>
             </Card>

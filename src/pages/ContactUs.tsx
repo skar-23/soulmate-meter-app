@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Header from "@/components/Header";
@@ -16,29 +15,47 @@ const ContactUs = () => {
     setIsSubmitting(true);
 
     const formData = new FormData(event.currentTarget);
-    const data = Object.fromEntries(formData.entries());
+    const data = Object.fromEntries(formData.entries()) as Record<string, any>;
+
+    // Honeypot spam protection: if botcheck is filled, silently abort
+    if (data.botcheck) {
+      console.warn("Bot detected via honeypot");
+      setIsSubmitting(false);
+      return;
+    }
+
+    // Prepare payload for Web3Forms
+    const payload = {
+      access_key: import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || "",
+      name: data.name,
+      email: data.email,
+      subject: data.subject,
+      message: data.message,
+    };
 
     try {
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       });
 
-      if (response.ok) {
-        // On successful submission, redirect to the thank-you page
-        window.location.href = '/thank-you';
+      const json = await res.json();
+
+      if (
+        res.ok &&
+        (json.success || json.message === "success" || json.success === true)
+      ) {
+        // Success — redirect to internal thank-you page (no external redirection)
+        window.location.href = "/thank-you";
       } else {
-        // Handle server errors (e.g., API is down)
-        alert('Something went wrong. Please try again later.');
+        console.error("Web3Forms error:", json);
+        alert("Failed to send message. Please try again later.");
         setIsSubmitting(false);
       }
     } catch (error) {
-      // Handle network errors
       console.error("Form submission error:", error);
-      alert('An error occurred. Please check your connection and try again.');
+      alert("An error occurred. Please check your connection and try again.");
       setIsSubmitting(false);
     }
   };
@@ -55,10 +72,25 @@ const ContactUs = () => {
             <CardContent className="space-y-6">
               <div>
                 <p className="text-muted-foreground">
-                  Have questions or feedback about Skar Love Calculator? We'd love to hear from you! Fill out the form below and we'll get back to you as soon as possible.
+                  Have questions or feedback about Skar Love Calculator? We'd
+                  love to hear from you! Fill out the form below and we'll get
+                  back to you as soon as possible.
                 </p>
               </div>
               <form onSubmit={handleSubmit} className="space-y-4">
+                {/* Web3Forms hidden access key - set via Vite env var when available */}
+                <input
+                  type="hidden"
+                  name="access_key"
+                  value={import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || ""}
+                />
+                {/* Honeypot field - keep hidden from users; bots may fill it */}
+                <input
+                  type="text"
+                  name="botcheck"
+                  className="hidden"
+                  style={{ display: "none" }}
+                />
                 <div className="space-y-2">
                   <Label htmlFor="name">Name</Label>
                   <Input
@@ -101,8 +133,13 @@ const ContactUs = () => {
                     disabled={isSubmitting}
                   />
                 </div>
-                <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
-                  {isSubmitting ? 'Sending...' : 'Send Message'}
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="w-full"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </Button>
               </form>
             </CardContent>
