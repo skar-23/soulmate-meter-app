@@ -71,3 +71,32 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+
+## Vercel Speed Insights (optional)
+
+If you want to collect performance metrics via Vercel Speed Insights in production, follow these steps:
+
+1. Install the package in your project locally (run on your machine):
+
+```powershell
+npm install @vercel/speed-insights
+```
+
+2. Vercel offers a managed integration — enable Speed Insights in your Vercel project settings. See the Vercel docs for details.
+
+3. Add the `SpeedInsightsWrapper` component somewhere in your app layout (for example in `src/main.tsx` or in a production-only layout component):
+
+```tsx
+import SpeedInsightsWrapper from "@/components/SpeedInsightsWrapper";
+
+function App() {
+  return (
+    <>
+      {/* your app */}
+      {process.env.NODE_ENV === "production" && <SpeedInsightsWrapper />}
+    </>
+  );
+}
+```
+
+Note: This repo adds `@vercel/speed-insights` to `package.json` and includes `src/components/SpeedInsightsWrapper.tsx`, but you still need to run `npm install` locally and enable the integration in your Vercel dashboard. Deployment to production is required for Speed Insights to collect data.
