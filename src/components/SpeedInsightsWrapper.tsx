@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 // because the package exposes utility exports that can conflict with
 // server-side bundling and types.
 export default function SpeedInsightsWrapper() {
-  const [Comp, setComp] = useState<React.ComponentType<any> | null>(null);
+  const [Comp, setComp] = useState<React.ComponentType | null>(null);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -18,7 +18,7 @@ export default function SpeedInsightsWrapper() {
       .then((mod) => {
         // package exposes a named export `SpeedInsights`
         const C = (mod && mod.SpeedInsights) as
-          | React.ComponentType<any>
+          | React.ComponentType
           | undefined;
         if (mounted && C) setComp(() => C);
       })

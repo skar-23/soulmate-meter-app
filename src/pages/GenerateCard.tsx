@@ -236,9 +236,9 @@ export default function GenerateCard() {
           type: "image/png",
         }),
       ];
-      // @ts-ignore
+      // @ts-expect-error - navigator.canShare may not be available in all browsers
       if (navigator.canShare && navigator.canShare({ files: filesArray })) {
-        // @ts-ignore
+        // @ts-expect-error - navigator.share with files may not be available in all browsers
         await navigator.share({ files: filesArray, title: title });
       } else {
         alert("Share not supported on this browser. Please download instead.");

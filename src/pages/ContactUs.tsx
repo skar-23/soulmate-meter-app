@@ -15,7 +15,7 @@ const ContactUs = () => {
     setIsSubmitting(true);
 
     const formData = new FormData(event.currentTarget);
-    const data = Object.fromEntries(formData.entries()) as Record<string, any>;
+    const data = Object.fromEntries(formData.entries()) as Record<string, string>;
 
     // Honeypot spam protection: if botcheck is filled, silently abort
     if (data.botcheck) {
