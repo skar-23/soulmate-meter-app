@@ -11,8 +11,10 @@ export default function SpeedInsightsWrapper() {
     if (typeof window === "undefined") return;
     let mounted = true;
 
-    // Dynamic import the Next-specific entry which exports a React component
-    import("@vercel/speed-insights/next")
+    // Dynamic import the React entrypoint to avoid Next.js-only APIs
+    // during Vite's production build. The package exports the same
+    // `SpeedInsights` component from `.../react`.
+    import("@vercel/speed-insights/react")
       .then((mod) => {
         // package exposes a named export `SpeedInsights`
         const C = (mod && mod.SpeedInsights) as
