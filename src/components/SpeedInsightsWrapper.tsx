@@ -1,17 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-// This wrapper dynamically imports the Vercel SpeedInsights component
-// and renders it only on the client to avoid SSR build-time issues.
+// Client-only wrapper that dynamically imports the Next-compatible
+// SpeedInsights export. We avoid importing this at module-eval time
+// because the package exposes utility exports that can conflict with
+// server-side bundling and types.
 export default function SpeedInsightsWrapper() {
-  if (typeof window === "undefined") return null;
+  const [Comp, setComp] = useState<React.ComponentType<any> | null>(null);
 
-  // Import lazily so bundlers don't include this in server builds
-  const SpeedInsights = React.lazy(() => import("@vercel/speed-insights"));
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    let mounted = true;
 
-  return (
-    <React.Suspense fallback={null}>
-      {/* @ts-ignore - the package exports a React component */}
-      <SpeedInsights />
-    </React.Suspense>
-  );
+    // Dynamic import the Next-specific entry which exports a React component
+    import("@vercel/speed-insights/next")
+      .then((mod) => {
+        // package exposes a named export `SpeedInsights`
+        const C = (mod && mod.SpeedInsights) as
+          | React.ComponentType<any>
+          | undefined;
+        if (mounted && C) setComp(() => C);
+      })
+      .catch(() => {
+        // ignore load failures in dev environment
+      });
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  if (!Comp) return null;
+
+  return <Comp />;
 }
