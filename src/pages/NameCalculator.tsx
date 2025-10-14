@@ -54,6 +54,54 @@ const NameCalculator = () => {
 
   const loveData = result ? getLoveMessage(result) : null;
 
+  // Build absolute OG image URL from canonical base so social previews reference the correct domain
+  const canonicalBase = "https://www.skarlovecalculator.app";
+  const absoluteOgImage = `${canonicalBase}${namesBg}`;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        name: "Skar Name Love Calculator",
+        description:
+          "Calculate name-based love compatibility as an instant percentage. Private, free, and shareable.",
+        url: "https://www.skarlovecalculator.app/name-calculator",
+        applicationCategory: "Game",
+        operatingSystem: "Web",
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "Is this test scientific?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "No. The Skar Name Love Calculator is for entertainment and provides a fun, name-based percentage. True relationship compatibility depends on many real-world factors.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Do you store the names I enter?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "No. Names are used only to calculate the result and are not stored permanently.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Can I share my result?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Yes. You can generate a shareable result card and download or post it to social media.",
+            },
+          },
+        ],
+      },
+    ],
+  };
+
   const getDominanceText = () => {
     if (result == null || resultSwapped == null) return null;
     if (result > resultSwapped)
@@ -66,18 +114,48 @@ const NameCalculator = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20 flex flex-col">
       <Helmet>
-        <title>Skar Love Calculator by Names - Free Compatibility Test</title>
-        <meta name="description" content="Calculate love compatibility using names with Skar Love Calculator. Enter two names to discover your romantic match percentage instantly with our free online love calculator." />
-        <meta name="keywords" content="skar love calculator by name, name compatibility, love test by name, couple name calculator, free love test, relationship calculator" />
-        <meta property="og:title" content="Skar Love Calculator by Names - Free Compatibility Test" />
-        <meta property="og:description" content="Calculate love compatibility using names with Skar Love Calculator. Enter two names to discover your romantic match percentage instantly with our free online love calculator." />
+        <title>
+          Skar Love Percentage Calculator by Names - Free Compatibility Test
+        </title>
+        <link
+          rel="canonical"
+          href="https://www.skarlovecalculator.app/name-calculator"
+        />
+        <meta
+          name="description"
+          content="Enter two names to calculate an instant love percentage — private, free, and easy to share. Generate a shareable result card and learn what different percentage ranges typically mean."
+        />
+        <meta
+          name="keywords"
+          content="skar love calculator by name, name compatibility, love test by name, couple name calculator, free love test, relationship calculator,love percentage calculator"
+        />
+
+        <meta
+          property="og:title"
+          content="Love Calculator by Names — Free Name Compatibility Test"
+        />
+        <meta
+          property="og:description"
+          content="Enter two names to calculate an instant love percentage — private, free, and easy to share. Generate a shareable result card and learn what different percentage ranges typically mean."
+        />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://skarlovecalculator.app/name-calculator" />
-        <meta property="og:image" content={namesBg} />
+        <meta
+          property="og:url"
+          content="https://www.skarlovecalculator.app/name-calculator"
+        />
+        <meta property="og:image" content={absoluteOgImage} />
+        <link rel="preload" as="image" href={absoluteOgImage} />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Skar Love Calculator by Names - Free Compatibility Test" />
-        <meta name="twitter:description" content="Calculate love compatibility using names with Skar Love Calculator. Enter two names to discover your romantic match percentage instantly with our free online love calculator." />
-        <meta name="twitter:image" content={namesBg} />
+        <meta
+          name="twitter:title"
+          content="Love Calculator by Names — Free Name Compatibility Test"
+        />
+        <meta
+          name="twitter:description"
+          content="Enter two names to calculate an instant love percentage — private, free, and easy to share. Generate a shareable result card and learn what different percentage ranges typically mean."
+        />
+        <meta name="twitter:image" content={absoluteOgImage} />
+        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
       <Header />
 
@@ -86,13 +164,32 @@ const NameCalculator = () => {
           {/* SEO Header */}
           <header className="mb-12 text-center">
             <h1 className="mb-4 text-4xl font-bold tracking-tight md:text-5xl">
-              Skar Love Calculator by Names
+              Love Percentage Calculator by Names
             </h1>
-            <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-              Calculate love compatibility using names. Enter two names below to
-              discover your romantic match percentage instantly!
-            </p>
+            {/* <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
+              Enter two names to calculate an instant love percentage — private,
+              free, and easy to share.
+            </p> */}
+            <h2 className="mt-4 text-xl font-medium text-foreground/90">
+              Love Percentage Calculator by Names — Share Result Cards
+            </h2>
           </header>
+
+          {/* Crawlable intro block (SEO) */}
+          <section className="mx-auto mb-8 max-w-3xl text-muted-foreground prose prose-sm">
+            <p>
+              Enter your partner name below to instantly calculate a love percentage
+              between you.Results are generated on the fly — no sign-up or
+              personal data required — and you can download or share a visually
+              pleasing result card if you want to save or post the outcome. Use
+              the love percentage as a playful conversation starter or a quick,
+              light-hearted way to explore name-based compatibility. While the
+              percentage gives an easy-to-understand snapshot, remember this
+              tool is for entertainment: true relationship compatibility depends
+              on many real-world factors beyond any name-based score. We
+              prioritize privacy (names aren’t stored permanently).
+            </p>
+          </section>
 
           {/* Calculator Section */}
           <section className="mx-auto max-w-4xl">
@@ -226,7 +323,11 @@ const NameCalculator = () => {
                       </div>
 
                       <div className="flex justify-center">
-                        <Button onClick={generateCard} variant="romantic" size="lg">
+                        <Button
+                          onClick={generateCard}
+                          variant="romantic"
+                          size="lg"
+                        >
                           <Download className="mr-2 h-5 w-5" />
                           Generate Card
                         </Button>
