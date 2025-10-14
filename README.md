@@ -2,7 +2,7 @@
 
 ## Project info
 
-**URL**: https://lovable.dev/projects/52db672e-8274-44f7-997f-498de9157e20
+**URL**: "https://www.skarlovecalculator.app"
 
 # SkarTeam — Soulmate Meter App
 
