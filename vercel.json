@@ -1,8 +1,15 @@
 {
+  "cleanUrls": true,
   "rewrites": [
     {
       "source": "/(.*)",
       "destination": "/index.html"
+    }
+  ],
+  "routes": [
+    {
+      "src": "^/404$",
+      "dest": "/404.html"
     }
   ]
 }
