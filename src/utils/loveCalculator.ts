@@ -16,7 +16,7 @@ export const calculateLoveByNames = (name1: string, name2: string): number => {
   // Count letter frequencies in insertion order
   const letterCount: { [key: string]: number } = {};
   for (const ch of combined) {
-    if (!letterCount.hasOwnProperty(ch)) letterCount[ch] = 0;
+    if (!Object.prototype.hasOwnProperty.call(letterCount, ch)) letterCount[ch] = 0;
     letterCount[ch] = letterCount[ch] + 1;
   }
 
