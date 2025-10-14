@@ -7,6 +7,8 @@ import { HelmetProvider } from "react-helmet-async";
 import Index from "./pages/Index";
 import NameCalculator from "./pages/NameCalculator";
 import DobCalculator from "./pages/DobCalculator";
+import NumerologyForLove from "./pages/blog/numerology-for-love";
+import ShareResults from "./pages/ShareResults";
 import NotFound from "./pages/NotFound";
 import GenerateCard from "./pages/GenerateCard";
 import AboutUs from "./pages/AboutUs";
@@ -34,6 +36,11 @@ const App = () => (
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms-of-service" element={<TermsOfService />} />
             <Route path="/thank-you" element={<ThankYou />} />
+            <Route
+              path="/blog/numerology-for-love"
+              element={<NumerologyForLove />}
+            />
+            <Route path="/share-results" element={<ShareResults />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

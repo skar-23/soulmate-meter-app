@@ -22,25 +22,27 @@ export default function GenerateCard() {
 
   const searchParams = new URLSearchParams(location.search);
   const isZodiacCard = searchParams.has("sign1");
-  const name1 = searchParams.get("sign1") || searchParams.get("name1") || "Elara";
-  const name2 = searchParams.get("sign2") || searchParams.get("name2") || "Orion";
+  const name1 =
+    searchParams.get("sign1") || searchParams.get("name1") || "Elara";
+  const name2 =
+    searchParams.get("sign2") || searchParams.get("name2") || "Orion";
   const percentage = searchParams.get("percentage") || 97;
 
   useEffect(() => {
     // It's important to load the custom font before using it on the canvas
-    document.fonts.load('bold 60px Cinzel').then(() => {
-        const img = new Image();
-        img.src = templateUrl;
-        img.onload = () => {
-            const canvas = canvasRef.current!;
-            if (!canvas) return;
-            canvas.width = img.width;
-            canvas.height = img.height;
-            const ctx = canvas.getContext("2d")!;
-            ctx.drawImage(img, 0, 0);
-            setLoaded(true);
-            draw(ctx);
-        };
+    document.fonts.load("bold 60px Cinzel").then(() => {
+      const img = new Image();
+      img.src = templateUrl;
+      img.onload = () => {
+        const canvas = canvasRef.current!;
+        if (!canvas) return;
+        canvas.width = img.width;
+        canvas.height = img.height;
+        const ctx = canvas.getContext("2d")!;
+        ctx.drawImage(img, 0, 0);
+        setLoaded(true);
+        draw(ctx);
+      };
     });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -81,20 +83,99 @@ export default function GenerateCard() {
       const nr = COORDS.name_right;
       const p = COORDS.percentage;
       const t = COORDS.tagline;
-      
+
       let displayText1 = name1;
       let displayText2 = name2;
-      
+
       if (isZodiacCard) {
-          const symbol1 = getZodiacSymbol(name1);
-          const symbol2 = getZodiacSymbol(name2);
-          displayText1 = `${name1} ${symbol1}`;
-          displayText2 = `${name2} ${symbol2}`;
+        const symbol1 = getZodiacSymbol(name1);
+        const symbol2 = getZodiacSymbol(name2);
+        displayText1 = `${name1} ${symbol1}`;
+        displayText2 = `${name2} ${symbol2}`;
       }
 
       // Draw names/signs with Cinzel font
-      drawText(displayText1, nl.pos[0] * scale, nl.pos[1] * scale, nl.font * scale, "#D4AF37", "#0f172a", "Cinzel");
-      drawText(displayText2, nr.pos[0] * scale, nr.pos[1] * scale, nr.font * scale, "#D4AF37", "#0f172a", "Cinzel");
+      // Make sure both names do not overflow the central ampersand area.
+      // Strategy: measure both names and, if either would overlap the center, truncate both to the same length so they remain balanced.
+      const centerX = ctx.canvas.width / 2;
+      const ampersandClearance = 40 * scale; // pixels of clearance from center
+
+      const measureTextWidth = (text: string, fontPx: number) => {
+        ctx.font = `bold ${Math.round(fontPx)}px Cinzel`;
+        return ctx.measureText(text).width;
+      };
+
+      const maxWidthForSide = (anchorX: number) => {
+        if (anchorX < centerX) {
+          return Math.max(0, 2 * (centerX - ampersandClearance - anchorX));
+        }
+        return Math.max(0, 2 * (anchorX - ampersandClearance - centerX));
+      };
+
+      const leftMax = maxWidthForSide(nl.pos[0] * scale);
+      const rightMax = maxWidthForSide(nr.pos[0] * scale);
+
+      const leftWidth = measureTextWidth(displayText1, nl.font * scale);
+      const rightWidth = measureTextWidth(displayText2, nr.font * scale);
+
+      // If either side would exceed its max, truncate both names to the same number of characters
+      if (leftWidth > leftMax || rightWidth > rightMax) {
+        // find maximum characters that could fit on the tighter side
+        const findFitChars = (text: string, fontPx: number, maxW: number) => {
+          // quick fallback: try proportional scaling by chars until it fits
+          if (maxW <= 0) return 4; // extremely tight; keep a tiny label
+          let lo = 1;
+          let hi = text.length;
+          let best = 1;
+          while (lo <= hi) {
+            const mid = Math.floor((lo + hi) / 2);
+            const sample = text.slice(0, mid) + "…";
+            const w = measureTextWidth(sample, fontPx);
+            if (w <= maxW) {
+              best = mid;
+              lo = mid + 1;
+            } else {
+              hi = mid - 1;
+            }
+          }
+          return Math.max(1, best);
+        };
+
+        const leftChars = findFitChars(displayText1, nl.font * scale, leftMax);
+        const rightChars = findFitChars(
+          displayText2,
+          nr.font * scale,
+          rightMax
+        );
+
+        // use the smaller of the two so both names have same displayed length
+        const common = Math.min(leftChars, rightChars);
+        displayText1 =
+          displayText1.slice(0, common) +
+          (displayText1.length > common ? "…" : "");
+        displayText2 =
+          displayText2.slice(0, common) +
+          (displayText2.length > common ? "…" : "");
+      }
+
+      drawText(
+        displayText1,
+        nl.pos[0] * scale,
+        nl.pos[1] * scale,
+        nl.font * scale,
+        "#D4AF37",
+        "#0f172a",
+        "Cinzel"
+      );
+      drawText(
+        displayText2,
+        nr.pos[0] * scale,
+        nr.pos[1] * scale,
+        nr.font * scale,
+        "#D4AF37",
+        "#0f172a",
+        "Cinzel"
+      );
 
       // Draw percentage with default Segoe UI font
       drawText(
@@ -104,10 +185,13 @@ export default function GenerateCard() {
         p.font * scale
       );
 
-      const subtitle =
-        isZodiacCard
-            ? (Number(percentage) >= 80 ? "A Cosmic Union!" : "Written in the Stars.")
-            : (Number(percentage) >= 90 ? "A Celestial Connection! Soulmates." : "A Celestial Connection!");
+      const subtitle = isZodiacCard
+        ? Number(percentage) >= 80
+          ? "A Cosmic Union!"
+          : "Written in the Stars."
+        : Number(percentage) >= 90
+        ? "A Celestial Connection! Soulmates."
+        : "A Celestial Connection!";
 
       // Draw tagline with Cinzel font and golden color
       drawText(
@@ -127,10 +211,12 @@ export default function GenerateCard() {
     const url = canvas.toDataURL("image/png");
     const a = document.createElement("a");
     a.href = url;
-    const fileName = isZodiacCard ? `cosmic-connection-${name1}-${name2}.png` : `soulmate-${name1}-${name2}.png`;
+    const fileName = isZodiacCard
+      ? `cosmic-connection-${name1}-${name2}.png`
+      : `soulmate-${name1}-${name2}.png`;
     a.download = fileName;
     document.body.appendChild(a);
-a.click();
+    a.click();
     a.remove();
   };
 
@@ -141,7 +227,9 @@ a.click();
         canvas.toBlob((b) => res(b), "image/png")
       );
       if (!blob) return;
-      const fileName = isZodiacCard ? `cosmic-connection-${name1}-${name2}.png` : `soulmate-${name1}-${name2}.png`;
+      const fileName = isZodiacCard
+        ? `cosmic-connection-${name1}-${name2}.png`
+        : `soulmate-${name1}-${name2}.png`;
       const title = isZodiacCard ? "Cosmic Connection" : "Soulmate Card";
       const filesArray = [
         new File([blob], fileName, {
@@ -163,34 +251,41 @@ a.click();
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20 flex flex-col">
-        <Header />
-        <main className="flex-grow p-6 flex flex-col items-center">
-            <h2 className="text-2xl font-bold mb-4">{isZodiacCard ? "Your Cosmic Connection Card" : "Your Love Card"}</h2>
-            
-            <div className="mt-6">
-                <canvas
-                ref={canvasRef}
-                style={{
-                    maxWidth: "480px",
-                    width: "100%",
-                    borderRadius: 8,
-                    boxShadow: "0 4px 14px rgba(2,6,23,0.6)",
-                }}
-                />
-            </div>
+      <Header />
+      <main className="flex-grow p-6 flex flex-col items-center">
+        <h2 className="text-2xl font-bold mb-4">
+          {isZodiacCard ? "Your Cosmic Connection Card" : "Your Love Card"}
+        </h2>
 
-            <div className="flex gap-4 mt-6">
-                <Button onClick={handleDownload} disabled={!loaded} size="lg">
-                    <Download className="mr-2 h-5 w-5" />
-                    Download
-                </Button>
-                <Button onClick={handleShare} disabled={!loaded} size="lg" variant="outline">
-                    <Share2 className="mr-2 h-5 w-5" />
-                    Share
-                </Button>
-            </div>
-        </main>
-        <Footer />
+        <div className="mt-6">
+          <canvas
+            ref={canvasRef}
+            style={{
+              maxWidth: "480px",
+              width: "100%",
+              borderRadius: 8,
+              boxShadow: "0 4px 14px rgba(2,6,23,0.6)",
+            }}
+          />
+        </div>
+
+        <div className="flex gap-4 mt-6">
+          <Button onClick={handleDownload} disabled={!loaded} size="lg">
+            <Download className="mr-2 h-5 w-5" />
+            Download
+          </Button>
+          <Button
+            onClick={handleShare}
+            disabled={!loaded}
+            size="lg"
+            variant="outline"
+          >
+            <Share2 className="mr-2 h-5 w-5" />
+            Share
+          </Button>
+        </div>
+      </main>
+      <Footer />
     </div>
   );
 }

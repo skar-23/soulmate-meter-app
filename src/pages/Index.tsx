@@ -47,6 +47,19 @@ const Index = () => {
           content="Calculate your love compatibility with Skar Love Calculator, our free love calculator. Test by names or birth dates and discover your romantic destiny. Fun, fast, and free!"
         />
         <meta name="twitter:image" content={heroImage} />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "Skar Love Calculator",
+            url: "https://skarlovecalculator.app/",
+            logo: "https://skarlovecalculator.app/logo.png",
+            sameAs: [
+              "https://twitter.com/skarlovecal2025",
+              "https://instagram.com/skarlovecalculator",
+            ],
+          })}
+        </script>
       </Helmet>
       <Header />
 
@@ -107,7 +120,7 @@ const Index = () => {
         <section className="py-20 bg-background">
           <div className="container">
             <h2 className="mb-12 text-center text-3xl font-bold">
-              How Skar Love Calculator Works
+              Maximize Your Match: Name Compatibility vs. Birthdate Love Test
             </h2>
 
             <div className="grid gap-8 md:grid-cols-3">
@@ -177,11 +190,12 @@ const Index = () => {
               </h2>
 
               <p className="text-lg text-muted-foreground mb-6">
-                Our love calculator is a fun and entertaining way to test
-                romantic compatibility between two people. Whether you're
-                curious about a crush, testing your relationship, or just having
-                fun with friends, our love percentage calculator provides
-                instant results based on either names or birth dates.
+                We're a fun, entertaining way to test romantic compatibility and
+                see your love percentage. Whether you're curious about a crush,
+                testing your relationship, or just having fun with friends, our
+                love percentage calculator provides instant results that help
+                you explore your relationship compatibility, based on either
+                names or birth dates.
               </p>
 
               <h3 className="text-2xl font-semibold mb-4">
@@ -200,8 +214,10 @@ const Index = () => {
               <p className="text-muted-foreground mb-6">
                 For a more personalized approach, try our birthdate calculator.
                 By comparing birth dates, we calculate compatibility based on
-                numerological principles, providing insights into your romantic
-                match.
+                <Link to="/blog/numerology-for-love" className="underline ml-1">
+                  numerological principles
+                </Link>
+                , providing insights into your romantic match.
               </p>
 
               <h3 className="text-2xl font-semibold mb-4">
@@ -212,7 +228,11 @@ const Index = () => {
                 <li>Entertainment for parties and social gatherings</li>
                 <li>Curiosity about relationship compatibility</li>
                 <li>Free and instant results with no registration</li>
-                <li>Share results with friends on social media</li>
+                <li>
+                  <Link to="/share-results" className="underline">
+                    Share results with friends on social media
+                  </Link>
+                </li>
               </ul>
             </article>
           </div>
