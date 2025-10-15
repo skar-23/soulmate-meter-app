@@ -25,9 +25,9 @@ const ShareResults: React.FC = () => {
   };
 
   const tryNativeShare = async () => {
-    if ((navigator as any).share) {
+    if (navigator.share) {
       try {
-        await (navigator as any).share({
+        await navigator.share({
           title: "Skar Love Calculator",
           text: "Check my love compatibility!",
           url: shareUrl,
