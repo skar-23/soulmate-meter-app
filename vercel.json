@@ -1,12 +1,8 @@
 {
-  "cleanUrls": true,
   "rewrites": [
+    { "source": "/favicon.ico", "destination": "/heart.png" },
     {
-      "source": "/404",
-      "destination": "/404.html"
-    },
-    {
-      "source": "/(.*)",
+      "source": "/((?!api/|_next/static|_next/image|assets/|favicon.ico|sitemap.xml|robots.txt|images/).*)",
       "destination": "/index.html"
     }
   ]
