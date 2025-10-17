@@ -66,15 +66,11 @@ const Index = () => {
       <main className="flex-grow">
         {/* Hero Section */}
         <section className="relative overflow-hidden py-12 md:py-32 lg:py-32">
-          <div
-            role="img"
-            aria-label="A romantic, artistic depiction of a cosmic heart."
-            className="absolute inset-0 opacity-20"
-            style={{
-              backgroundImage: `url(${heroImage})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
+          <img
+            src={heroImage}
+            alt="A romantic, artistic depiction of a cosmic heart."
+            fetchPriority="high"
+            className="absolute inset-0 w-full h-full object-cover opacity-20"
           />
 
           <div className="container relative z-10">
