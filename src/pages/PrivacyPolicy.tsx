@@ -1,6 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { User, Calendar, Heart } from "lucide-react";
 
 const PrivacyPolicy = () => {
   return (
@@ -36,6 +39,53 @@ const PrivacyPolicy = () => {
               </p>
             </CardContent>
           </Card>
+
+          <div className="mt-12">
+            <h2 className="text-2xl font-bold text-center mb-6">Explore More</h2>
+            <div className="grid gap-8 md:grid-cols-3">
+              <Card className="border-primary/20 transition-all hover:shadow-lg hover:-translate-y-1">
+                <CardHeader>
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-accent">
+                    <User className="h-6 w-6 text-primary-foreground" />
+                  </div>
+                  <CardTitle>Name Compatibility</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <Button asChild variant="ghost" className="w-full">
+                    <Link to="/name-calculator">Try Name Calculator →</Link>
+                  </Button>
+                </CardContent>
+              </Card>
+
+              <Card className="border-accent/20 transition-all hover:shadow-lg hover:-translate-y-1">
+                <CardHeader>
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-accent to-primary">
+                    <Calendar className="h-6 w-6 text-accent-foreground" />
+                  </div>
+                  <CardTitle>Birthdate Match</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <Button asChild variant="ghost" className="w-full">
+                    <Link to="/dob-calculator">Try Date Calculator →</Link>
+                  </Button>
+                </CardContent>
+              </Card>
+
+              <Card className="border-primary/20 transition-all hover:shadow-lg hover:-translate-y-1">
+                <CardHeader>
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-accent">
+                    <Heart className="h-6 w-6 text-primary-foreground" />
+                  </div>
+                  <CardTitle>Numerology For Love</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <Button asChild variant="ghost" className="w-full">
+                    <Link to="/blog/numerology-for-love">Read Our Blog →</Link>
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
         </section>
       </main>
       <Footer />

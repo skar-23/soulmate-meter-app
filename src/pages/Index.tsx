@@ -67,6 +67,8 @@ const Index = () => {
         {/* Hero Section */}
         <section className="relative overflow-hidden py-12 md:py-32 lg:py-32">
           <div
+            role="img"
+            aria-label="A romantic, artistic depiction of a cosmic heart."
             className="absolute inset-0 opacity-20"
             style={{
               backgroundImage: `url(${heroImage})`,
@@ -190,8 +192,8 @@ const Index = () => {
               </h2>
 
               <p className="text-lg text-muted-foreground mb-6">
-                We're a fun, entertaining way to test romantic compatibility and
-                see your love percentage. Whether you're curious about a crush,
+                We''re a fun, entertaining way to test romantic compatibility and
+                see your love percentage. Whether you''re curious about a crush,
                 testing your relationship, or just having fun with friends, our
                 love percentage calculator provides instant results that help
                 you explore your relationship compatibility, based on either

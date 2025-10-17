@@ -53,42 +53,99 @@ const DobCalculator = () => {
     setSign2("");
   };
 
+  // Build absolute OG image URL
+  const canonicalBase = "https://www.skarlovecalculator.app";
+  const absoluteOgImage = `${canonicalBase}${dobBg}`;
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        name: "Skar Love Calculator by Birth Date",
+        description:
+          "Calculate love compatibility based on zodiac signs from birth dates. Free, private, and shareable.",
+        url: "https://www.skarlovecalculator.app/dob-calculator",
+        applicationCategory: "Entertainment",
+        operatingSystem: "Web",
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "How does birth date compatibility work?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "It's based on zodiac sign compatibility. We determine each person's zodiac sign from their birth date and then calculate a compatibility score based on traditional astrological pairings.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Is this astrology-based test accurate?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "This calculator is for entertainment purposes. While astrology can offer fun insights, true compatibility is complex and depends on many factors beyond zodiac signs.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Is my birth date information saved?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "No. Your birth date is only used for the on-the-spot calculation and is not stored on our servers.",
+            },
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20 flex flex-col">
       <Helmet>
-        <title>Skar Love Calculator by Birth Date - Zodiac Compatibility</title>
+        <title>
+          Love Percentage Calculator by Date of Birth - Zodiac Compatibility
+        </title>
+        <link
+          rel="canonical"
+          href="https://www.skarlovecalculator.app/dob-calculator"
+        />
         <meta
           name="description"
-          content="Calculate love compatibility using birth dates with Skar Love Calculator. Select two birth dates to discover your romantic match percentage based on astrology and zodiac signs."
+          content="Find your love percentage by date of birth. Our free tool uses zodiac signs to calculate romantic compatibility. Get an instant, shareable result."
         />
         <meta
           name="keywords"
-          content="skar love calculator by birth date, dob love calculator, zodiac compatibility, astrology love test, birthdate compatibility, free love test"
+          content="love percentage calculator by date of birth, love calculator by dob, zodiac compatibility test, astrology love calculator, birth date compatibility, relationship calculator"
         />
+
         <meta
           property="og:title"
-          content="Skar Love Calculator by Birth Date - Zodiac Compatibility"
+          content="Love Percentage Calculator by Date of Birth - Zodiac Test"
         />
         <meta
           property="og:description"
-          content="Calculate love compatibility using birth dates with Skar Love Calculator. Select two birth dates to discover your romantic match percentage based on astrology and zodiac signs."
+          content="Find your love percentage by date of birth. Our free tool uses zodiac signs to calculate romantic compatibility. Get an instant, shareable result."
         />
         <meta property="og:type" content="website" />
         <meta
           property="og:url"
-          content="https://skarlovecalculator.app/dob-calculator"
+          content="https://www.skarlovecalculator.app/dob-calculator"
         />
-        <meta property="og:image" content={dobBg} />
+        <meta property="og:image" content={absoluteOgImage} />
+        <link rel="preload" as="image" href={absoluteOgImage} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
-          content="Skar Love Calculator by Birth Date - Zodiac Compatibility"
+          content="Love Percentage Calculator by Date of Birth - Zodiac Test"
         />
         <meta
           name="twitter:description"
-          content="Calculate love compatibility using birth dates with Skar Love Calculator. Select two birth dates to discover your romantic match percentage based on astrology and zodiac signs."
+          content="Find your love percentage by date of birth. Our free tool uses zodiac signs to calculate romantic compatibility. Get an instant, shareable result."
         />
-        <meta name="twitter:image" content={dobBg} />
+        <meta name="twitter:image" content={absoluteOgImage} />
+        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
       <Header />
 
@@ -97,12 +154,11 @@ const DobCalculator = () => {
           {/* SEO Header */}
           <header className="mb-12 text-center">
             <h1 className="mb-4 text-4xl font-bold tracking-tight md:text-5xl">
-              Skar Love Calculator by Birth Date
+              Love Percentage Calculator by Date of Birth
             </h1>
             <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-              Calculate love compatibility using birthdates. Select two birth
-              dates below to discover your romantic match percentage based on
-              astrology!
+              Discover your romantic compatibility based on astrology. Select two
+              birth dates to get an instant love percentage based on zodiac signs.
             </p>
           </header>
 
@@ -210,7 +266,7 @@ const DobCalculator = () => {
               <Card
                 className="relative overflow-hidden border-accent/20"
                 style={{
-                  backgroundImage: `url(${dobBg})`,
+                  backgroundImage: `url(${absoluteOgImage})`,
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }}

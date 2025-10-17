@@ -8,6 +8,9 @@ const Footer = () => {
           &copy; {new Date().getFullYear()} Your Love Calculator. All rights reserved.
         </p>
         <div className="flex items-center gap-4">
+          <Link to="/about-us" className="text-sm text-muted-foreground hover:text-primary">
+            About Us
+          </Link>
           <Link to="/privacy-policy" className="text-sm text-muted-foreground hover:text-primary">
             Privacy Policy
           </Link>
