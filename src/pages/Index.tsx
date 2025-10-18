@@ -13,10 +13,8 @@ import { Helmet } from "react-helmet-async";
 import Footer from "@/components/Footer";
 
 const Index = () => {
-  const heroImage = "/hero-love.jpg"; // Path to the image in the public folder
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20 flex flex-col">
+    <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
         <title>Skar Love Calculator - Test Your Love Compatibility</title>
         <meta
@@ -37,7 +35,6 @@ const Index = () => {
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://skarlovecalculator.app/" />
-        <meta property="og:image" content={heroImage} />
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
@@ -47,7 +44,6 @@ const Index = () => {
           name="twitter:description"
           content="Calculate your love compatibility with Skar Love Calculator, our free love calculator. Test by names or birth dates and discover your romantic destiny. Fun, fast, and free!"
         />
-        <meta name="twitter:image" content={heroImage} />
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -66,18 +62,9 @@ const Index = () => {
 
       <main className="flex-grow">
         {/* Hero Section */}
-        <section className="relative overflow-hidden py-12 md:py-32 lg:py-32">
-          <img
-            src={heroImage}
-            alt="A romantic, artistic depiction of a cosmic heart."
-            fetchPriority="high"
-            className="absolute inset-0 w-full h-full object-cover opacity-20"
-          />
-
+        <section className="relative overflow-hidden py-12 md:py-32 lg:py-32 bg-gradient-to-br from-primary/5 via-transparent to-secondary/10">
           <div className="container relative z-10">
             <div className="mx-auto max-w-3xl text-center">
-              {/* hero icon removed per request */}
-
               <h1 className="mb-6 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
                 Skar Love Calculator
                 <span className="block bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
