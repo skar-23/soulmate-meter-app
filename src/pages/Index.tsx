@@ -9,11 +9,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Header from "@/components/Header";
-import heroImage from "@/assets/hero-love.jpg";
 import { Helmet } from "react-helmet-async";
 import Footer from "@/components/Footer";
 
 const Index = () => {
+  const heroImage = "/hero-love.jpg"; // Path to the image in the public folder
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20 flex flex-col">
       <Helmet>

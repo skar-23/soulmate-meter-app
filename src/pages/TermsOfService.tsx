@@ -40,7 +40,7 @@ const TermsOfService = () => {
               </p>
               <h3 className="font-semibold text-foreground">4. Limitations</h3>
               <p>
-                Skar Love Calculator or its suppliers will not be hold accountable for any damages that will arise with the use or inability to use the materials on Skar Love Calculator's Website, even if we or an authorize representative of this Website has been notified, orally or written, of the possibility of such damage. Some jurisdiction does not allow limitations on implied warranties or limitations of liability for incidental damages, these limitations may not apply to you.
+                Skar Love Calculator or its suppliers will not be held accountable for any damages that will arise with the use or inability to use the materials on Skar Love Calculator's Website, even if we or an authorize representative of this Website has been notified, orally or written, of the possibility of such damage. Some jurisdiction does not allow limitations on implied warranties or limitations of liability for incidental damages, these limitations may not apply to you.
               </p>
               <h3 className="font-semibold text-foreground">5. Revisions and Errata</h3>
               <p>
