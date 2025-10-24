@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { FaInstagram, FaTwitter } from 'react-icons/fa';
 
 const Footer = () => {
   return (
@@ -7,6 +8,14 @@ const Footer = () => {
         <p className="text-sm text-muted-foreground">
           &copy; {new Date().getFullYear()} Your Love Calculator. All rights reserved.
         </p>
+        <div className="flex items-center gap-4">
+          <a href="https://www.instagram.com/skarlovecalculator" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-primary">
+            <FaInstagram />
+          </a>
+          <a href="https://twitter.com/skarlovecal2025" target="_blank" rel="noopener noreferrer" className="text-sm text-muted-foreground hover:text-primary">
+            <FaTwitter />
+          </a>
+        </div>
         <div className="flex items-center gap-4">
           <Link to="/about-us" className="text-sm text-muted-foreground hover:text-primary">
             About Us
