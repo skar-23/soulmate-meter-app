@@ -254,6 +254,7 @@ export default function GenerateCard() {
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20 flex flex-col">
      <Helmet>
         <title>Generate Your Love Score Card - Skar Love Calculator</title>
+        <link rel="canonical" href="https://www.skarlovecalculator.app/generate-card" />
         <meta
           name="description"
           content="Create and download a shareable love score card with your personalized compatibility result. Share your love percentage with friends!"
