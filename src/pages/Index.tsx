@@ -13,6 +13,52 @@ import { Helmet } from "react-helmet-async";
 import Footer from "@/components/Footer";
 
 const Index = () => {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        name: "Skar Love Calculator",
+        alternateName: "Skar Love",
+        url: "https://www.skarlovecalculator.app",
+        logo: "https://www.skarlovecalculator.app/favicon.ico",
+        sameAs: [
+          "https://www.instagram.com/skarlovecalculator",
+          "https://twitter.com/skarlovecal2025",
+        ],
+      },
+      {
+        "@type": "FAQPage",
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "How accurate is the love calculation percentage?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "It's a novelty score based on an algorithm. For fun only! We recommend consulting relationship experts for real advice.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Can I share my results on social media?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Yes, absolutely! We encourage you to share your unique SkarLovecalculator results on TikTok, Instagram, or any platform.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Is this calculator free to use?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "Yes, the SkarLoveCalculator is 100% free, and you can use it as many times as you like.",
+            },
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
@@ -44,19 +90,7 @@ const Index = () => {
           name="twitter:description"
           content="Calculate your love compatibility with Skar Love Calculator, our free love calculator. Test by names or birth dates and discover your romantic destiny. Fun, fast, and free!"
         />
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            name: "Skar Love Calculator",
-            url: "https://skarlovecalculator.app/",
-            logo: "https://skarlovecalculator.app/logo.png",
-            sameAs: [
-              "https://twitter.com/skarlovecal2025",
-              "https://instagram.com/skarlovecalculator",
-            ],
-          })}
-        </script>
+        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
       <Header />
 
@@ -176,8 +210,8 @@ const Index = () => {
               </h2>
 
               <p className="text-lg text-muted-foreground mb-6">
-                We''re a fun, entertaining way to test romantic compatibility and
-                see your love percentage. Whether you''re curious about a crush,
+                We'''re a fun, entertaining way to test romantic compatibility and
+                see your love percentage. Whether you'''re curious about a crush,
                 testing your relationship, or just having fun with friends, our
                 love percentage calculator provides instant results that help
                 you explore your relationship compatibility, based on either

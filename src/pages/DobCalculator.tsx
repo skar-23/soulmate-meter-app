@@ -71,32 +71,28 @@ const DobCalculator = () => {
       },
       {
         "@type": "FAQPage",
-        mainEntity: [
-          {
-            "@type": "Question",
-            name: "How does birth date compatibility work?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "It's based on zodiac sign compatibility. We determine each person's zodiac sign from their birth date and then calculate a compatibility score based on traditional astrological pairings.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Is this astrology-based test accurate?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "This calculator is for entertainment purposes. While astrology can offer fun insights, true compatibility is complex and depends on many factors beyond zodiac signs.",
-            },
-          },
-          {
-            "@type": "Question",
-            name: "Is my birth date information saved?",
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: "No. Your birth date is only used for the on-the-spot calculation and is not stored on our servers.",
-            },
-          },
-        ],
+        mainEntity: [{
+          "@type": "Question",
+          name: "How does birth date compatibility work?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "It's based on zodiac sign compatibility. We determine each person's zodiac sign from their birth date and then calculate a compatibility score based on traditional astrological pairings."
+          }
+        },{
+          "@type": "Question",
+          name: "Is this astrology-based test accurate?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "This calculator is for entertainment purposes. While astrology can offer fun insights, true compatibility is complex and depends on many factors beyond zodiac signs."
+          }
+        },{
+          "@type": "Question",
+          name: "Is my birth date information saved?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "No. Your birth date is only used for the on-the-spot calculation and is not stored on our servers."
+          }
+        }]
       },
     ],
   };
