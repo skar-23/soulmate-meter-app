@@ -74,14 +74,14 @@ const NumerologyForLove: React.FC = () => {
         <article className="mx-auto max-w-3xl bg-card p-8 rounded-lg shadow-sm">
           <img
             src="/generated/Numerology_Love_Compatibility.png"
-            alt="Numerology love compatibility"
+            alt="An artistic depiction of numerology and love compatibility, showing interconnected numbers and heart symbols."
             className="w-full h-auto max-h-72 object-contain rounded-md mb-6 bg-muted/5"
           />
 
           <div className="flex items-center gap-4 mb-6">
             <img
               src="/heart.png"
-              alt="author avatar"
+              alt="Skar Love Calculator author avatar"
               className="h-12 w-12 rounded-full object-contain bg-white p-1"
             />
             <div>
