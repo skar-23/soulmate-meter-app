@@ -56,6 +56,33 @@ const Index = () => {
           },
         ],
       },
+      {
+        "@type": "HowTo",
+        name: "Calculate Your True Compatibility (Name or Birth Date)",
+        description:
+          "Follow these simple steps to use our fun, novelty algorithm to get a compatibility score based on your names and dates of birth.",
+        image: "https://www.skarlovecalculator.app/generated/sample2.png",
+        totalTime: "PT3M",
+        estimatedCost: {
+          "@type": "MonetaryAmount",
+          currency: "USD",
+          value: "0",
+        },
+        step: [
+          {
+            "@type": "HowToStep",
+            text: "Identify Yourself: Enter your name or date of birth (DOB) into the dedicated fields.",
+          },
+          {
+            "@type": "HowToStep",
+            text: "Identify Your Partner: Enter your partner's name or their date of birth (DOB) into the second set of fields.",
+          },
+          {
+            "@type": "HowToStep",
+            text: "Generate Results: Click the 'Calculate love' button to receive your instant compatibility percentage.",
+          },
+        ],
+      },
     ],
   };
 
@@ -73,14 +100,23 @@ const Index = () => {
         />
         <meta
           property="og:title"
-          content="Skar Love Calculator - Test Your Love Compatibility"
+          content="Skar Love Calculator -Discover Your Love Compatibility Score"
+        />
+        <meta property="og:site_name" content="Skar Love Calculator" />
+        <meta
+          property="og:url"
+          content="https://www.skarlovecalculator.app/"
         />
         <meta
           property="og:description"
-          content="Calculate your love compatibility with Skar Love Calculator, our free love calculator. Test by names or birth dates and discover your romantic destiny. Fun, fast, and free!"
+          content="Calculate your love percentage with our fun and free love calculator. Test compatibility by names or birth dates and discover your romantic destiny!"
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://skarlovecalculator.app/" />
+        <meta
+          property="og:image"
+          content="https://www.skarlovecalculator.app/favicon.ico"
+        />
+
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
