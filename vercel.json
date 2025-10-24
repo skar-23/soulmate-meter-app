@@ -5,5 +5,18 @@
       "source": "/((?!api/|_next/static|_next/image|assets/|favicon.ico|sitemap.xml|robots.txt|images/).*)",
       "destination": "/index.html"
     }
+  ],
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [
+        {
+          "type": "host",
+          "value": "skarlovecalculator.app"
+        }
+      ],
+      "destination": "https://www.skarlovecalculator.app/$1",
+      "permanent": true
+    }
   ]
 }
