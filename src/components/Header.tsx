@@ -17,7 +17,7 @@ const Header = () => {
           className="flex items-center gap-2 transition-transform hover:scale-105"
         >
           <img
-            src="/heart.png"
+            src="/favicon.ico"
             alt="logo"
             className="h-6 w-6 animate-heartbeat"
           />

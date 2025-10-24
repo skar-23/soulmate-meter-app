@@ -80,7 +80,7 @@ const NumerologyForLove: React.FC = () => {
 
           <div className="flex items-center gap-4 mb-6">
             <img
-              src="/heart.png"
+              src="/favicon.ico"
               alt="Skar Love Calculator author avatar"
               className="h-12 w-12 rounded-full object-contain bg-white p-1"
             />

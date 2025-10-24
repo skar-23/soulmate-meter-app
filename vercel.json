@@ -1,6 +1,6 @@
 {
   "rewrites": [
-    { "source": "/favicon.ico", "destination": "/heart.png" },
+    { "source": "/heart.png", "destination": "/favicon.ico" },
     {
       "source": "/((?!api/|_next/static|_next/image|assets/|favicon.ico|sitemap.xml|robots.txt|images/|generated/).*)",
       "destination": "/index.html"
