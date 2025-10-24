@@ -1,13 +1,3 @@
-User-agent: Mediapartners-Google
-Disallow: /about-us
-Disallow: /contact-us
-Disallow: /privacy-policy
-Disallow: /terms-of-service
-Disallow: /thank-you
-Disallow: /share-results
-Disallow: /404.html
-Allow: /
-
 User-agent: *
 Allow: /
 Sitemap: https://www.skarlovecalculator.app/sitemap.xml
