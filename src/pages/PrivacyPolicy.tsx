@@ -4,10 +4,22 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { User, Calendar, Heart } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 
 const PrivacyPolicy = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20 flex flex-col">
+      <Helmet>
+        <title>Privacy Policy - Skar Love Calculator</title>
+        <meta
+          name="description"
+          content="Read the privacy policy for Skar Love Calculator to understand how we handle your data. We are committed to protecting your privacy and ensuring your information is safe."
+        />
+        <meta
+          name="keywords"
+          content="skar love calculator privacy policy, data use love app, skar love calculator data"
+        />
+      </Helmet>
       <Header />
       <main className="container py-12 flex-grow">
         <section className="mx-auto max-w-3xl">

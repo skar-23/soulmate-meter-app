@@ -4,10 +4,22 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { User, Calendar, Heart } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 
 const TermsOfService = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20 flex flex-col">
+      <Helmet>
+        <title>Terms of Service - Skar Love Calculator</title>
+        <meta
+          name="description"
+          content="Read the terms of service for Skar Love Calculator. By using our website, you agree to these terms and conditions."
+        />
+        <meta
+          name="keywords"
+          content="skar love calculator terms and conditions, skar love app terms of use"
+        />
+      </Helmet>
       <Header />
       <main className="container py-12 flex-grow">
         <section className="mx-auto max-w-3xl">

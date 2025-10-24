@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Download, Share2 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { Helmet } from "react-helmet-async";
 
 // coords are the 1080-space positions we stored in tools/template_coords_1080.json
 const COORDS = {
@@ -251,6 +252,17 @@ export default function GenerateCard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20 flex flex-col">
+     <Helmet>
+        <title>Generate Your Love Score Card - Skar Love Calculator</title>
+        <meta
+          name="description"
+          content="Create and download a shareable love score card with your personalized compatibility result. Share your love percentage with friends!"
+        />
+        <meta
+          name="keywords"
+          content="create shearble love score card, download love calculator result image"
+        />
+      </Helmet>
       <Header />
       <main className="flex-grow p-6 flex flex-col items-center">
         <h2 className="text-2xl font-bold mb-4">

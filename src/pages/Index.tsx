@@ -23,7 +23,7 @@ const Index = () => {
         />
         <meta
           name="keywords"
-          content="skar love calculator, love calculator, compatibility test, love test, name calculator, dob calculator, zodiac compatibility, relationship test, couple compatibility"
+          content="love,love calculator,love compatibility test,love percentage calculator,free online love calcuator,free love test,love score checker,Best free online love calculator for couples,skar love calculator,love calculator by name,love calculator by birthdate,love estimator,love calculate by name,love calculator based on names,true love calculator,real love calculator"
         />
         <meta
           property="og:title"

@@ -117,7 +117,7 @@ const DobCalculator = () => {
         />
         <meta
           name="keywords"
-          content="love percentage calculator by date of birth, love calculator by dob, zodiac compatibility test, astrology love calculator, birth date compatibility, relationship calculator"
+          content="love calculator by birth date,birth date love test,zodiac compatibility test,skar love calculator by birth date,compatibility test astrology,star sign compatibility test,zodiac sign compatibility test,love calculator by date of birth,horoscope compatibility test,dob love calculator,couple compatibility bybirth date,love calculator according to date of birth,love calculator based on date of birth,love meter by date of birth,astrology signs love calculator"
         />
 
         <meta

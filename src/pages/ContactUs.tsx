@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { Helmet } from "react-helmet-async";
 
 const ContactUs = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -62,6 +63,17 @@ const ContactUs = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20 flex flex-col">
+      <Helmet>
+        <title>Contact Us - Skar Love Calculator</title>
+        <meta
+          name="description"
+          content="Contact Skar Love Calculator for support, feedback, or inquiries. Report a bug or get in touch with our customer support team."
+        />
+        <meta
+          name="keywords"
+          content="SkarLove Calculator contact, report a bug on love calculator, love calculator customer support"
+        />
+      </Helmet>
       <Header />
       <main className="container py-12 flex-grow">
         <section className="mx-auto max-w-3xl">

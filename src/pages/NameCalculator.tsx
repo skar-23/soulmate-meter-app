@@ -78,7 +78,7 @@ const NameCalculator = () => {
             name: "Is this test scientific?",
             acceptedAnswer: {
               "@type": "Answer",
-              text: "No. The Skar Name Love Calculator is for entertainment and provides a fun, name-based percentage. True relationship compatibility depends on many real-world factors.",
+              text: "No. The Skar Name Love Calculator is for entertainment and provides a fun, name-based percentage. True relationship compatibility depends on many real-world factors beyond any name-based score.",
             },
           },
           {
@@ -127,7 +127,7 @@ const NameCalculator = () => {
         />
         <meta
           name="keywords"
-          content="skar love calculator by name, name compatibility, love test by name, couple name calculator, free love test, relationship calculator,love percentage calculator"
+          content="love calculator by name,name love test,skar love calculator by name,love calculate by name,love calculator based on names,compatibility test names,love calculator true,love test using names,name compatibility check,name name love test,couple compatibility test by name"
         />
 
         <meta

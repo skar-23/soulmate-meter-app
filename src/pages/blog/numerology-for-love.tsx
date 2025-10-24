@@ -49,6 +49,10 @@ const NumerologyForLove: React.FC = () => {
           content="Learn how our birthdate compatibility calculator uses numerology-inspired methods to estimate relationship compatibility."
         />
         <meta
+          name="keywords"
+          content="numerology for love compatibility, love calculator numerology secrets, how numerology predicts love"
+        />
+        <meta
           property="og:title"
           content="Numerology for Love — How Our Birthdate Compatibility Works"
         />

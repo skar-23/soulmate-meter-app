@@ -4,10 +4,22 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { User, Calendar, Heart } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 
 const AboutUs = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20 flex flex-col">
+      <Helmet>
+        <title>About Skar Love Calculator</title>
+        <meta
+          name="description"
+          content="Learn more about Skar Love Calculator, our mission, and our team. Discover the story behind our fun and engaging love compatibility tools."
+        />
+        <meta
+          name="keywords"
+          content="Skar Love Calculator, who runs skar love calculator, love calculator creator"
+        />
+      </Helmet>
       <Header />
       <main className="container py-12 flex-grow">
         <section className="mx-auto max-w-3xl">
