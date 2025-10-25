@@ -123,7 +123,6 @@ const Index = () => {
           content="Calculate your love compatibility with Skar Love Calculator, our free love calculator. Test by names or birth dates and discover your romantic destiny. Fun, fast, and free!"
         />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
-        <script src="https://analytics.ahrefs.com/analytics.js" data-key="zATJyqEwKsgiEnLYHB3O8A" async></script>
       </Helmet>
       <Header />
 
