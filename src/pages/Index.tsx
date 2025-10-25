@@ -89,11 +89,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
-        <title>Skar Love Calculator - Test Your Love Compatibility</title>
-        <meta
-          name="description"
-          content="Calculate your love compatibility with Skar Love Calculator, our free love calculator. Test by names or birth dates and discover your romantic destiny. Fun, fast, and free!"
-        />
+        {/* The meta description is now in index.html */}
         <meta
           name="keywords"
           content="love,love calculator,love compatibility test,love percentage calculator,free online love calcuator,free love test,love score checker,Best free online love calculator for couples,skar love calculator,love calculator by name,love calculator by birthdate,love estimator,love calculate by name,love calculator based on names,true love calculator,real love calculator"
@@ -135,13 +131,7 @@ const Index = () => {
         <section className="relative overflow-hidden py-12 md:py-32 lg:py-32 bg-gradient-to-br from-primary/5 via-transparent to-secondary/10">
           <div className="container relative z-10">
             <div className="mx-auto max-w-3xl text-center">
-              <h1 className="mb-6 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
-                Skar Love Calculator
-                <span className="block bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                  Discover Your Compatibility Score
-                </span>
-              </h1>
-
+              {/* The h1 is now in index.html */}
               <p className="mb-8 text-base text-muted-foreground md:text-lg lg:text-xl">
                 Calculate your love percentage with our fun and free love
                 calculator. Test compatibility by names or birth dates and
@@ -246,8 +236,8 @@ const Index = () => {
               </h2>
 
               <p className="text-lg text-muted-foreground mb-6">
-                We'''re a fun, entertaining way to test romantic compatibility and
-                see your love percentage. Whether you'''re curious about a crush,
+                We're a fun, entertaining way to test romantic compatibility and
+                see your love percentage. Whether you're curious about a crush,
                 testing your relationship, or just having fun with friends, our
                 love percentage calculator provides instant results that help
                 you explore your relationship compatibility, based on either
