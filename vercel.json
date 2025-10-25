@@ -2,7 +2,7 @@
   "rewrites": [
     { "source": "/heart.png", "destination": "/favicon.ico" },
     {
-      "source": "/((?!api/|_next/static|_next/image|assets/|favicon.ico|sitemap.xml|robots.txt|images/|generated/).*)",
+      "source": "/((?!api/|_next/static|_next/image|assets/|favicon.ico|sitemap.xml|robots.txt|images/|generated/|yandex_84e567c7c54075ef.html).*)",
       "destination": "/index.html"
     }
   ],
