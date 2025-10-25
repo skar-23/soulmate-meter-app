@@ -61,7 +61,7 @@ const Index = () => {
         name: "Calculate Your True Compatibility (Name or Birth Date)",
         description:
           "Follow these simple steps to use our fun, novelty algorithm to get a compatibility score based on your names and dates of birth.",
-        image: "https://www.skarlovecalculator.app/generated/sample2.png",
+        image: "https://www.skarlovecalculator.app/generated/skar-love-calculator-usage-guide.png",
         totalTime: "PT3M",
         estimatedCost: {
           "@type": "MonetaryAmount",
@@ -110,7 +110,7 @@ const Index = () => {
         <meta property="og:type" content="website" />
         <meta
           property="og:image"
-          content="https://www.skarlovecalculator.app/favicon.ico"
+          content="https://www.skarlovecalculator.app/generated/skar-love-calculator-name-compatibility.png"
         />
 
         <meta name="twitter:card" content="summary_large_image" />
@@ -158,6 +158,14 @@ const Index = () => {
                   </Link>
                 </Button>
               </div>
+            </div>
+
+            <div className="mt-12 text-center">
+                <img 
+                    src="/generated/skar-love-calculator-name-compatibility.png"
+                    alt="An example of the Skar Love Calculator name compatibility results, showing a love score of 95% for 'John' and 'Mary'. The image features the Skar Love Calculator branding."
+                    className="mx-auto rounded-lg shadow-lg"
+                />
             </div>
           </div>
         </section>
