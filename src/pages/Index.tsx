@@ -159,14 +159,6 @@ const Index = () => {
                 </Button>
               </div>
             </div>
-
-            <div className="mt-12 text-center">
-                <img 
-                    src="/generated/skar-love-calculator-name-compatibility.png"
-                    alt="An example of the Skar Love Calculator name compatibility results, showing a love score of 95% for 'John' and 'Mary'. The image features the Skar Love Calculator branding."
-                    className="mx-auto rounded-lg shadow-lg"
-                />
-            </div>
           </div>
         </section>
 
