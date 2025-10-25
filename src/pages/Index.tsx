@@ -89,13 +89,18 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
+        <title>Skar Love Calculator - a true love calculator by name or birthdate</title>
+        <meta
+          name="description"
+          content="Test your love compatibility with our free Love Calculator. Enter your names or birthdates to get your love percentage and shearable result cards!"
+        />
         <meta
           name="keywords"
           content="love,love calculator,love compatibility test,love percentage calculator,free online love calcuator,free love test,love score checker,Best free online love calculator for couples,skar love calculator,love calculator by name,love calculator by birthdate,love estimator,love calculate by name,love calculator based on names,true love calculator,real love calculator"
         />
         <meta
           property="og:title"
-          content="Skar Love Calculator -Discover Your Love Compatibility Score"
+          content="Skar Love Calculator - a true love calculator by name or birthdate"
         />
         <meta property="og:site_name" content="Skar Love Calculator" />
         <meta
@@ -104,7 +109,7 @@ const Index = () => {
         />
         <meta
           property="og:description"
-          content="Calculate your love percentage with our fun and free love calculator. Test compatibility by names or birth dates and discover your romantic destiny!"
+          content="Test your love compatibility with our free Love Calculator. Enter your names or birthdates to get your love percentage and shearable result cards!"
         />
         <meta property="og:type" content="website" />
         <meta
@@ -115,11 +120,11 @@ const Index = () => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
-          content="Skar Love Calculator - Test Your Love Compatibility"
+          content="Skar Love Calculator - a true love calculator by name or birthdate"
         />
         <meta
           name="twitter:description"
-          content="Calculate your love compatibility with Skar Love Calculator, our free love calculator. Test by names or birth dates and discover your romantic destiny. Fun, fast, and free!"
+          content="Test your love compatibility with our free Love Calculator. Enter your names or birthdates to get your love percentage and shearable result cards!"
         />
         <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
@@ -176,7 +181,7 @@ const Index = () => {
                   </div>
                   <CardTitle>Name Compatibility</CardTitle>
                   <CardDescription>
-                    Enter two names and discover the love percentage based on
+                    Enter two names and and discover the love percentage based on
                     name compatibility analysis
                   </CardDescription>
                 </CardHeader>
@@ -237,7 +242,7 @@ const Index = () => {
               <p className="text-lg text-muted-foreground mb-6">
                 We're a fun, entertaining way to test romantic compatibility and
                 see your love percentage. Whether you're curious about a crush,
-                testing your relationship, or justhaving fun with friends, our
+                testing your relationship, or just having fun with friends, our
                 love percentage calculator provides instant results that help
                 you explore your relationship compatibility, based on either
                 names or birth dates.
