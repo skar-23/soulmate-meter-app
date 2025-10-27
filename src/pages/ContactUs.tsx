@@ -73,6 +73,7 @@ const ContactUs = () => {
           name="keywords"
           content="SkarLove Calculator contact, report a bug on love calculator, love calculator customer support"
         />
+        <link rel="canonical" href="https://www.skarlovecalculator.app/contact-us" />
       </Helmet>
       <Header />
       <main className="container py-12 flex-grow">

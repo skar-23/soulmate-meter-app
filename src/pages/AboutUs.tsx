@@ -4,10 +4,14 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { User, Calendar, Heart } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 
 const AboutUs = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20 flex flex-col">
+      <Helmet>
+        <link rel="canonical" href="https://www.skarlovecalculator.app/about-us" />
+      </Helmet>
       <Header />
       <main className="container py-12 flex-grow">
         <section className="mx-auto max-w-3xl">
