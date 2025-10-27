@@ -93,7 +93,7 @@ const NumerologyForLove: React.FC = () => {
               className="adsbygoogle"
               style={{ display: "block" }}
               data-ad-client="ca-pub-4776127788688436"
-              data-ad-slot="YOUR_AD_SLOT_8"
+              data-ad-slot="6283514962"
               data-ad-format="auto"
               data-full-width-responsive="true"
             ></ins>
@@ -169,7 +169,7 @@ const NumerologyForLove: React.FC = () => {
                 className="adsbygoogle"
                 style={{ display: "block" }}
                 data-ad-client="ca-pub-4776127788688436"
-                data-ad-slot="YOUR_AD_SLOT_9"
+                data-ad-slot="5604858115"
                 data-ad-format="auto"
                 data-full-width-responsive="true"
               ></ins>

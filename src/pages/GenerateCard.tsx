@@ -294,7 +294,7 @@ export default function GenerateCard() {
               className="adsbygoogle"
               style={{ display: "block" }}
               data-ad-client="ca-pub-4776127788688436"
-              data-ad-slot="YOUR_AD_SLOT_1"
+              data-ad-slot="3361838152"
               data-ad-format="auto"
               data-full-width-responsive="true"
             ></ins>
@@ -336,7 +336,7 @@ export default function GenerateCard() {
               className="adsbygoogle"
               style={{ display: "block" }}
               data-ad-client="ca-pub-4776127788688436"
-              data-ad-slot="YOUR_AD_SLOT_2"
+              data-ad-slot="3647589248"
               data-ad-format="auto"
               data-full-width-responsive="true"
             ></ins>

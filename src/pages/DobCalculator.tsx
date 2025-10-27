@@ -184,7 +184,7 @@ const DobCalculator = () => {
                 className="adsbygoogle"
                 style={{ display: "block" }}
                 data-ad-client="ca-pub-4776127788688436"
-                data-ad-slot="YOUR_AD_SLOT_6"
+                data-ad-slot="8489686534"
                 data-ad-format="auto"
                 data-full-width-responsive="true"
               ></ins>

@@ -193,7 +193,7 @@ const Index = () => {
                 className="adsbygoogle"
                 style={{ display: "block" }}
                 data-ad-client="ca-pub-4776127788688436"
-                data-ad-slot="YOUR_AD_SLOT_3"
+                data-ad-slot="3451421773"
                 data-ad-format="auto"
                 data-full-width-responsive="true"
               ></ins>
@@ -270,7 +270,7 @@ const Index = () => {
                 className="adsbygoogle"
                 style={{ display: "block" }}
                 data-ad-client="ca-pub-4776127788688436"
-                data-ad-slot="YOUR_AD_SLOT_4"
+                data-ad-slot="9415029047"
                 data-ad-format="auto"
                 data-full-width-responsive="true"
               ></ins>
