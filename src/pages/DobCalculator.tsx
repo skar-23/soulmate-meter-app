@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Heart, Calendar as CalendarIcon, Download } from "lucide-react";
 import { format } from "date-fns";
@@ -31,6 +31,19 @@ const DobCalculator = () => {
   const [showResult, setShowResult] = useState(false);
   const [sign1, setSign1] = useState<string>("");
   const [sign2, setSign2] = useState<string>("");
+
+  useEffect(() => {
+    // Push AdSense ads
+    try {
+      // @ts-expect-error - adsbygoogle is loaded from external script
+      if (typeof window !== "undefined" && window.adsbygoogle) {
+        // @ts-expect-error - adsbygoogle push
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      }
+    } catch (err) {
+      console.error("AdSense error:", err);
+    }
+  }, []);
 
   const handleCalculate = () => {
     if (date1 && date2) {
@@ -71,28 +84,32 @@ const DobCalculator = () => {
       },
       {
         "@type": "FAQPage",
-        mainEntity: [{
-          "@type": "Question",
-          name: "How does birth date compatibility work?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "It's based on zodiac sign compatibility. We determine each person's zodiac sign from their birth date and then calculate a compatibility score based on traditional astrological pairings."
-          }
-        },{
-          "@type": "Question",
-          name: "Is this astrology-based test accurate?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "This calculator is for entertainment purposes. While astrology can offer fun insights, true compatibility is complex and depends on many factors beyond zodiac signs."
-          }
-        },{
-          "@type": "Question",
-          name: "Is my birth date information saved?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "No. Your birth date is only used for the on-the-spot calculation and is not stored on our servers."
-          }
-        }]
+        mainEntity: [
+          {
+            "@type": "Question",
+            name: "How does birth date compatibility work?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "It's based on zodiac sign compatibility. We determine each person's zodiac sign from their birth date and then calculate a compatibility score based on traditional astrological pairings.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Is this astrology-based test accurate?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "This calculator is for entertainment purposes. While astrology can offer fun insights, true compatibility is complex and depends on many factors beyond zodiac signs.",
+            },
+          },
+          {
+            "@type": "Question",
+            name: "Is my birth date information saved?",
+            acceptedAnswer: {
+              "@type": "Answer",
+              text: "No. Your birth date is only used for the on-the-spot calculation and is not stored on our servers.",
+            },
+          },
+        ],
       },
     ],
   };
@@ -153,13 +170,26 @@ const DobCalculator = () => {
               Love Percentage Calculator by Date of Birth
             </h1>
             <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
-              Discover your romantic compatibility based on astrology. Select two
-              birth dates to get an instant love percentage based on zodiac signs.
+              Discover your romantic compatibility based on astrology. Select
+              two birth dates to get an instant love percentage based on zodiac
+              signs.
             </p>
           </header>
 
           {/* Calculator Section */}
           <section className="mx-auto max-w-4xl">
+            {/* Ad - Above calculator */}
+            <div className="flex justify-center mb-8">
+              <ins
+                className="adsbygoogle"
+                style={{ display: "block" }}
+                data-ad-client="ca-pub-4776127788688436"
+                data-ad-slot="YOUR_AD_SLOT_6"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+              ></ins>
+            </div>
+
             <div className="grid gap-8 md:grid-cols-2">
               {/* Input Card */}
               <Card className="border-primary/20">

@@ -7,6 +7,7 @@ import { Download, Share2 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 // coords are the 1080-space positions we stored in tools/template_coords_1080.json
 const COORDS = {
@@ -45,6 +46,19 @@ export default function GenerateCard() {
         draw(ctx);
       };
     });
+
+    // Push AdSense ads
+    try {
+      // @ts-expect-error - adsbygoogle is loaded from external script
+      if (typeof window !== "undefined" && window.adsbygoogle) {
+        // @ts-expect-error - adsbygoogle push
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        // @ts-expect-error - adsbygoogle push
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      }
+    } catch (err) {
+      console.error("AdSense error:", err);
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name1, name2, percentage, isZodiacCard]);
@@ -252,9 +266,12 @@ export default function GenerateCard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary/20 flex flex-col">
-     <Helmet>
+      <Helmet>
         <title>Generate Your Love Score Card - Skar Love Calculator</title>
-        <link rel="canonical" href="https://www.skarlovecalculator.app/generate-card" />
+        <link
+          rel="canonical"
+          href="https://www.skarlovecalculator.app/generate-card"
+        />
         <meta
           name="description"
           content="Create and download a shareable love score card with your personalized compatibility result. Share your love percentage with friends!"
@@ -265,37 +282,175 @@ export default function GenerateCard() {
         />
       </Helmet>
       <Header />
-      <main className="flex-grow p-6 flex flex-col items-center">
-        <h2 className="text-2xl font-bold mb-4">
-          {isZodiacCard ? "Your Cosmic Connection Card" : "Your Love Card"}
-        </h2>
+      <main className="flex-grow p-6">
+        <div className="container mx-auto max-w-6xl">
+          <h1 className="text-3xl md:text-4xl font-bold mb-4 text-center">
+            {isZodiacCard ? "Your Cosmic Connection Card" : "Your Love Card"}
+          </h1>
 
-        <div className="mt-6">
-          <canvas
-            ref={canvasRef}
-            style={{
-              maxWidth: "480px",
-              width: "100%",
-              borderRadius: 8,
-              boxShadow: "0 4px 14px rgba(2,6,23,0.6)",
-            }}
-          />
-        </div>
+          {/* Ad - Above the card */}
+          <div className="flex justify-center mb-6">
+            <ins
+              className="adsbygoogle"
+              style={{ display: "block" }}
+              data-ad-client="ca-pub-4776127788688436"
+              data-ad-slot="YOUR_AD_SLOT_1"
+              data-ad-format="auto"
+              data-full-width-responsive="true"
+            ></ins>
+          </div>
 
-        <div className="flex gap-4 mt-6">
-          <Button onClick={handleDownload} disabled={!loaded} size="lg">
-            <Download className="mr-2 h-5 w-5" />
-            Download
-          </Button>
-          <Button
-            onClick={handleShare}
-            disabled={!loaded}
-            size="lg"
-            variant="outline"
-          >
-            <Share2 className="mr-2 h-5 w-5" />
-            Share
-          </Button>
+          <div className="flex flex-col items-center">
+            <div className="mt-6">
+              <canvas
+                ref={canvasRef}
+                style={{
+                  maxWidth: "480px",
+                  width: "100%",
+                  borderRadius: 8,
+                  boxShadow: "0 4px 14px rgba(2,6,23,0.6)",
+                }}
+              />
+            </div>
+
+            <div className="flex gap-4 mt-6">
+              <Button onClick={handleDownload} disabled={!loaded} size="lg">
+                <Download className="mr-2 h-5 w-5" />
+                Download
+              </Button>
+              <Button
+                onClick={handleShare}
+                disabled={!loaded}
+                size="lg"
+                variant="outline"
+              >
+                <Share2 className="mr-2 h-5 w-5" />
+                Share
+              </Button>
+            </div>
+          </div>
+
+          {/* Ad - Below buttons */}
+          <div className="flex justify-center mt-8 mb-8">
+            <ins
+              className="adsbygoogle"
+              style={{ display: "block" }}
+              data-ad-client="ca-pub-4776127788688436"
+              data-ad-slot="YOUR_AD_SLOT_2"
+              data-ad-format="auto"
+              data-full-width-responsive="true"
+            ></ins>
+          </div>
+
+          {/* SEO Content Section */}
+          <section className="mt-12 max-w-4xl mx-auto">
+            <Card>
+              <CardHeader>
+                <CardTitle>How to Use Your Love Score Card</CardTitle>
+              </CardHeader>
+              <CardContent className="prose prose-sm max-w-none text-muted-foreground">
+                <p>
+                  Congratulations! You've generated your personalized love
+                  compatibility card. This beautiful card displays your unique
+                  love percentage and can be easily shared with friends, posted
+                  on social media, or saved as a keepsake of your romantic
+                  journey.
+                </p>
+
+                <h3 className="font-semibold text-foreground mt-6">
+                  Downloading Your Card
+                </h3>
+                <p>
+                  Click the "Download" button to save your love card as a
+                  high-quality PNG image. The card will be saved to your device
+                  with a unique filename that includes both names, making it
+                  easy to organize and find later. You can then upload it to
+                  Instagram, TikTok, Facebook, or any other platform you prefer.
+                </p>
+
+                <h3 className="font-semibold text-foreground mt-6">
+                  Sharing Directly
+                </h3>
+                <p>
+                  Use the "Share" button to instantly share your love card
+                  through your device's native sharing options. This works great
+                  on mobile devices, allowing you to quickly send your results
+                  via messaging apps, email, or social media without downloading
+                  first.
+                </p>
+
+                <h3 className="font-semibold text-foreground mt-6">
+                  Why Share Your Love Card?
+                </h3>
+                <ul className="list-disc pl-6 space-y-2">
+                  <li>
+                    Fun way to announce your relationship status or
+                    compatibility
+                  </li>
+                  <li>Great conversation starter with friends and family</li>
+                  <li>
+                    Create engaging content for your social media followers
+                  </li>
+                  <li>
+                    Save as a digital memory of your relationship milestone
+                  </li>
+                  <li>
+                    Compare results with friends to see who has the highest
+                    match
+                  </li>
+                </ul>
+
+                <h3 className="font-semibold text-foreground mt-6">
+                  Card Customization
+                </h3>
+                <p>
+                  Each card is uniquely generated based on your inputs.
+                  Name-based cards display both names prominently with your love
+                  percentage, while zodiac cards include astrological symbols
+                  for a cosmic touch. The elegant design features:
+                </p>
+                <ul className="list-disc pl-6 space-y-2">
+                  <li>Beautiful celestial background imagery</li>
+                  <li>Golden text accents for a premium look</li>
+                  <li>Large, bold percentage display</li>
+                  <li>Romantic taglines based on your compatibility score</li>
+                  <li>
+                    Professional quality suitable for printing or digital
+                    sharing
+                  </li>
+                </ul>
+
+                <h3 className="font-semibold text-foreground mt-6">
+                  Tips for Best Results
+                </h3>
+                <ul className="list-disc pl-6 space-y-2">
+                  <li>
+                    Use clear, correctly spelled names for the best appearance
+                  </li>
+                  <li>
+                    Keep names reasonably short to fit perfectly on the card
+                  </li>
+                  <li>Download in PNG format for the highest quality</li>
+                  <li>
+                    Share on platforms that support high-resolution images
+                  </li>
+                  <li>
+                    Create multiple cards to compare different name combinations
+                  </li>
+                </ul>
+
+                <p className="mt-6">
+                  Remember, while these love cards are fun and entertaining,
+                  they're designed for amusement purposes only. True
+                  compatibility comes from communication, shared values, and
+                  mutual respect. Use your love card as a lighthearted way to
+                  celebrate your connection, but always remember that real
+                  relationships require genuine effort and understanding from
+                  both partners.
+                </p>
+              </CardContent>
+            </Card>
+          </section>
         </div>
       </main>
       <Footer />

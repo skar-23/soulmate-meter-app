@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
@@ -13,6 +13,19 @@ const ShareResults: React.FC = () => {
   const shareText = encodeURIComponent(
     "Check out my love compatibility result on Skar Love Calculator!"
   );
+
+  useEffect(() => {
+    // Push AdSense ads
+    try {
+      // @ts-expect-error - adsbygoogle is loaded from external script
+      if (typeof window !== "undefined" && window.adsbygoogle) {
+        // @ts-expect-error - adsbygoogle push
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      }
+    } catch (err) {
+      console.error("AdSense error:", err);
+    }
+  }, []);
 
   const copyLink = async () => {
     try {
@@ -53,6 +66,18 @@ const ShareResults: React.FC = () => {
       <Header />
 
       <main className="container py-12 flex-grow">
+        {/* Ad - Top of page */}
+        <div className="flex justify-center mb-8">
+          <ins
+            className="adsbygoogle"
+            style={{ display: "block" }}
+            data-ad-client="ca-pub-4776127788688436"
+            data-ad-slot="YOUR_AD_SLOT_7"
+            data-ad-format="auto"
+            data-full-width-responsive="true"
+          ></ins>
+        </div>
+
         <div className="mx-auto max-w-2xl bg-card p-8 rounded-lg shadow-sm text-center">
           <h1 className="text-2xl font-bold mb-4">Share Your Results</h1>
           <p className="mb-6 text-muted-foreground">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
@@ -10,6 +10,21 @@ const NumerologyForLove: React.FC = () => {
   const publishedDate = "2025-10-13"; // placeholder, update as needed
   const modifiedDate = publishedDate;
   const authorName = "Skar Team"; // please provide real author/name if available
+
+  useEffect(() => {
+    // Push AdSense ads
+    try {
+      // @ts-expect-error - adsbygoogle is loaded from external script
+      if (typeof window !== "undefined" && window.adsbygoogle) {
+        // @ts-expect-error - adsbygoogle push
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        // @ts-expect-error - adsbygoogle push
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      }
+    } catch (err) {
+      console.error("AdSense error:", err);
+    }
+  }, []);
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -72,6 +87,18 @@ const NumerologyForLove: React.FC = () => {
 
       <main className="container py-12 flex-grow">
         <article className="mx-auto max-w-3xl bg-card p-8 rounded-lg shadow-sm">
+          {/* Ad - Top of article */}
+          <div className="flex justify-center mb-8">
+            <ins
+              className="adsbygoogle"
+              style={{ display: "block" }}
+              data-ad-client="ca-pub-4776127788688436"
+              data-ad-slot="YOUR_AD_SLOT_8"
+              data-ad-format="auto"
+              data-full-width-responsive="true"
+            ></ins>
+          </div>
+
           <img
             src="/generated/Numerology_Love_Compatibility.png"
             alt="An artistic depiction of numerology and love compatibility, showing interconnected numbers and heart symbols."
@@ -135,6 +162,18 @@ const NumerologyForLove: React.FC = () => {
                 heuristic designed for entertainment.
               </li>
             </ol>
+
+            {/* Ad - Mid-article */}
+            <div className="flex justify-center my-8">
+              <ins
+                className="adsbygoogle"
+                style={{ display: "block" }}
+                data-ad-client="ca-pub-4776127788688436"
+                data-ad-slot="YOUR_AD_SLOT_9"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+              ></ins>
+            </div>
 
             <h2>Sources and further reading</h2>
             <ul>

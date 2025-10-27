@@ -11,8 +11,24 @@ import {
 import Header from "@/components/Header";
 import { Helmet } from "react-helmet-async";
 import Footer from "@/components/Footer";
+import { useEffect } from "react";
 
 const Index = () => {
+  useEffect(() => {
+    // Push AdSense ads
+    try {
+      // @ts-expect-error - adsbygoogle is loaded from external script
+      if (typeof window !== "undefined" && window.adsbygoogle) {
+        // @ts-expect-error - adsbygoogle push
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+        // @ts-expect-error - adsbygoogle push
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      }
+    } catch (err) {
+      console.error("AdSense error:", err);
+    }
+  }, []);
+
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -61,7 +77,8 @@ const Index = () => {
         name: "Calculate Your True Compatibility (Name or Birth Date)",
         description:
           "Follow these simple steps to use our fun, novelty algorithm to get a compatibility score based on your names and dates of birth.",
-        image: "https://www.skarlovecalculator.app/generated/skar-love-calculator-usage-guide.png",
+        image:
+          "https://www.skarlovecalculator.app/generated/skar-love-calculator-usage-guide.png",
         totalTime: "PT3M",
         estimatedCost: {
           "@type": "MonetaryAmount",
@@ -89,7 +106,9 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Helmet>
-        <title>Skar Love Calculator - a true love calculator by name or birthdate</title>
+        <title>
+          Skar Love Calculator - a true love calculator by name or birthdate
+        </title>
         <meta
           name="description"
           content="Test your love compatibility with our free Love Calculator. Enter your names or birthdates to get your love percentage and shearable result cards!"
@@ -103,10 +122,7 @@ const Index = () => {
           content="Skar Love Calculator - a true love calculator by name or birthdate"
         />
         <meta property="og:site_name" content="Skar Love Calculator" />
-        <meta
-          property="og:url"
-          content="https://www.skarlovecalculator.app/"
-        />
+        <meta property="og:url" content="https://www.skarlovecalculator.app/" />
         <meta
           property="og:description"
           content="Test your love compatibility with our free Love Calculator. Enter your names or birthdates to get your love percentage and shearable result cards!"
@@ -139,7 +155,9 @@ const Index = () => {
                 Skar Love Calculator
               </h1>
               <h2 className="mb-8 text-lg text-muted-foreground md:text-xl lg:text-2xl">
-                Find your true love compatibility with our fun love calculator. Use the love calculator by name or birthdate to get your love percentage.
+                Find your true love compatibility with our fun love calculator.
+                Use the love calculator by name or birthdate to get your love
+                percentage.
               </h2>
 
               <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
@@ -169,6 +187,18 @@ const Index = () => {
         {/* Features Section */}
         <section className="py-20 bg-background">
           <div className="container">
+            {/* Ad - Above features */}
+            <div className="flex justify-center mb-8">
+              <ins
+                className="adsbygoogle"
+                style={{ display: "block" }}
+                data-ad-client="ca-pub-4776127788688436"
+                data-ad-slot="YOUR_AD_SLOT_3"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+              ></ins>
+            </div>
+
             <h2 className="mb-12 text-center text-3xl font-bold">
               Maximize Your Match: Name Compatibility vs. Birthdate Love Test
             </h2>
@@ -181,8 +211,8 @@ const Index = () => {
                   </div>
                   <CardTitle>Name Compatibility</CardTitle>
                   <CardDescription>
-                    Enter two names and and discover the love percentage based on
-                    name compatibility analysis
+                    Enter two names and and discover the love percentage based
+                    on name compatibility analysis
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -234,6 +264,18 @@ const Index = () => {
         {/* SEO Content Section */}
         <section className="py-20 bg-secondary/30">
           <div className="container max-w-4xl">
+            {/* Ad - Before content */}
+            <div className="flex justify-center mb-8">
+              <ins
+                className="adsbygoogle"
+                style={{ display: "block" }}
+                data-ad-client="ca-pub-4776127788688436"
+                data-ad-slot="YOUR_AD_SLOT_4"
+                data-ad-format="auto"
+                data-full-width-responsive="true"
+              ></ins>
+            </div>
+
             <article className="prose prose-gray max-w-none">
               <h2 className="text-3xl font-bold mb-6">
                 About Our Love Calculator
