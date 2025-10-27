@@ -27,7 +27,7 @@ const ContactUs = () => {
 
     // Prepare payload for Web3Forms
     const payload = {
-      access_key:"45c74fe3-651b-4c8a-9b14-e08559d14718",
+      access_key: "45c74fe3-651b-4c8a-9b14-e08559d14718",
       name: data.name,
       email: data.email,
       subject: data.subject,
@@ -83,6 +83,17 @@ const ContactUs = () => {
               <CardTitle className="text-3xl">Contact Us</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
+              <div className="space-y-4 text-muted-foreground">
+                <p>
+                  At Skar Love Calculator, we are dedicated to providing a fun and insightful experience. We value your feedback and are here to assist with any questions or concerns.
+                </p>
+                <p>
+                  Before reaching out, you might find an answer to your question in our Privacy Policy or Terms of Service.
+                </p>
+                <p>
+                  If you have questions about how our calculator works, please note that it's intended for entertainment purposes. The results are generated based on our own fun algorithm and should not be taken as professional advice.
+                </p>
+              </div>
               <div>
                 <p className="text-muted-foreground">
                   Have questions or feedback about Skar Love Calculator? We'd
