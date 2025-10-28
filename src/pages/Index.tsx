@@ -51,29 +51,6 @@ const Index = () => {
     } catch (err) {
       console.error("Adsterra inject error:", err);
     }
-    // Inject Adsterra mobile banner (320x50) into hero for small screens
-    try {
-      if (typeof document !== "undefined") {
-        const m = document.getElementById("adsterra-landing-top-mobile");
-        if (m && !m.dataset.injected) {
-          const inline = document.createElement("script");
-          inline.type = "text/javascript";
-          inline.innerHTML = `atOptions = {\n  'key' : 'f86496dbc7f82a79bfcb8f358d2b9896',\n  'format' : 'iframe',\n  'height' : 50,\n  'width' : 320,\n  'params' : {}\n};`;
-          m.appendChild(inline);
-
-          const remote = document.createElement("script");
-          remote.type = "text/javascript";
-          remote.src =
-            "https://www.highperformanceformat.com/f86496dbc7f82a79bfcb8f358d2b9896/invoke.js";
-          remote.async = true;
-          m.appendChild(remote);
-
-          m.dataset.injected = "1";
-        }
-      }
-    } catch (err) {
-      console.error("Adsterra mobile inject error:", err);
-    }
   }, []);
 
   const jsonLd = {
@@ -206,11 +183,6 @@ const Index = () => {
                 Use the love calculator by name or birthdate to get your love
                 percentage.
               </h2>
-
-              {/* Adsterra mobile banner (320x50) - visible on small screens */}
-              <div className="mb-4 block md:hidden">
-                <div id="adsterra-landing-top-mobile" style={{ height: 50 }} />
-              </div>
 
               <div className="flex flex-col gap-3 sm:flex-row sm:justify-center">
                 <Button asChild size="lg" variant="romantic" className="group">
