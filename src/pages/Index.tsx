@@ -27,6 +27,30 @@ const Index = () => {
     } catch (err) {
       console.error("AdSense error:", err);
     }
+    // Inject Adsterra in-content banner for landing page (300x250)
+    try {
+      if (typeof document !== "undefined") {
+        const container = document.getElementById("adsterra-landing-incontent");
+        if (container && !container.dataset.injected) {
+          // set atOptions inline
+          const inline = document.createElement("script");
+          inline.type = "text/javascript";
+          inline.innerHTML = `atOptions = {\n  'key' : 'b3e841a50d3f6d225a3b8da527aaebd5',\n  'format' : 'iframe',\n  'height' : 250,\n  'width' : 300,\n  'params' : {}\n};`;
+          container.appendChild(inline);
+
+          const remote = document.createElement("script");
+          remote.type = "text/javascript";
+          remote.src =
+            "https://www.highperformanceformat.com/b3e841a50d3f6d225a3b8da527aaebd5/invoke.js";
+          remote.async = true;
+          container.appendChild(remote);
+
+          container.dataset.injected = "1";
+        }
+      }
+    } catch (err) {
+      console.error("Adsterra inject error:", err);
+    }
   }, []);
 
   const jsonLd = {
@@ -264,16 +288,9 @@ const Index = () => {
         {/* SEO Content Section */}
         <section className="py-20 bg-secondary/30">
           <div className="container max-w-4xl">
-            {/* Ad - Before content */}
+            {/* Adsterra - In-content landing banner (300x250) */}
             <div className="flex justify-center mb-8">
-              <ins
-                className="adsbygoogle"
-                style={{ display: "block" }}
-                data-ad-client="ca-pub-4776127788688436"
-                data-ad-slot="9415029047"
-                data-ad-format="auto"
-                data-full-width-responsive="true"
-              ></ins>
+              <div id="adsterra-landing-incontent" style={{ minHeight: 250 }} />
             </div>
 
             <article className="prose prose-gray max-w-none">
