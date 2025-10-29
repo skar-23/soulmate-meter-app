@@ -98,27 +98,49 @@ const Index = () => {
     } catch (err) {
       console.error("AdSense init error:", err);
     }
-    // Inject Adsterra in-content banner for landing page (single small banner to avoid overlap)
+    // Inject Adsterra snippets into dedicated containers (two non-coinciding slots)
     try {
       if (typeof document !== "undefined") {
-        const container = document.getElementById("adsterra-landing-incontent");
-        if (container && !container.dataset.injected) {
-          // Use the provided Adsterra snippet (50x320) — keep AdSense ads untouched elsewhere
-          const inline = document.createElement("script");
-          inline.type = "text/javascript";
-          inline.innerHTML = `atOptions = {\n	'key' : 'f86496dbc7f82a79bfcb8f358d2b9896',\n	'format' : 'iframe',\n	'height' : 50,\n	'width' : 320,\n	'params' : {}\n};`;
-          container.appendChild(inline);
+        // 320x50 mobile banner (keeps previous placement above footer)
+        const containerSmall = document.getElementById(
+          "adsterra-landing-incontent"
+        );
+        if (containerSmall && !containerSmall.dataset.injected) {
+          const inlineSmall = document.createElement("script");
+          inlineSmall.type = "text/javascript";
+          inlineSmall.innerHTML =
+            "atOptions = { 'key' : 'f86496dbc7f82a79bfcb8f358d2b9896', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };";
+          containerSmall.appendChild(inlineSmall);
 
-          const remote = document.createElement("script");
-          remote.type = "text/javascript";
-          // protocol-relative URL as provided
-          remote.src =
+          const remoteSmall = document.createElement("script");
+          remoteSmall.type = "text/javascript";
+          remoteSmall.src =
             "//www.highperformanceformat.com/f86496dbc7f82a79bfcb8f358d2b9896/invoke.js";
-          remote.async = true;
-          container.appendChild(remote);
+          remoteSmall.async = true;
+          containerSmall.appendChild(remoteSmall);
 
-          // mark so we don't inject twice
-          container.dataset.injected = "1";
+          containerSmall.dataset.injected = "1";
+        }
+
+        // 300x250 in-content banner (SEO section)
+        const containerLarge = document.getElementById(
+          "adsterra-landing-incontent-300x250"
+        );
+        if (containerLarge && !containerLarge.dataset.injected) {
+          const inlineLarge = document.createElement("script");
+          inlineLarge.type = "text/javascript";
+          inlineLarge.innerHTML =
+            "atOptions = { 'key' : 'b3e841a50d3f6d225a3b8da527aaebd5', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };";
+          containerLarge.appendChild(inlineLarge);
+
+          const remoteLarge = document.createElement("script");
+          remoteLarge.type = "text/javascript";
+          remoteLarge.src =
+            "//www.highperformanceformat.com/b3e841a50d3f6d225a3b8da527aaebd5/invoke.js";
+          remoteLarge.async = true;
+          containerLarge.appendChild(remoteLarge);
+
+          containerLarge.dataset.injected = "1";
         }
       }
     } catch (err) {
@@ -361,14 +383,12 @@ const Index = () => {
         {/* SEO Content Section */}
         <section className="py-20 bg-secondary/30">
           <div className="container max-w-4xl">
-            {/* Adsterra - In-content landing banner (300x250) */}
+            {/* Adsterra - In-content (300x250) placed in SEO content to avoid AdSense slots */}
             <div className="flex justify-center mb-8">
-              {/* Adsterra container: make visible and centered on both mobile and desktop.
-                  Use full width but constrain to 320px so desktop shows a compact banner while mobile fits naturally. */}
               <div
-                id="adsterra-landing-incontent"
+                id="adsterra-landing-incontent-300x250"
                 className="adsterra-banner"
-                style={{ minHeight: 50, width: "100%", maxWidth: 320 }}
+                style={{ minHeight: 250, width: "100%", maxWidth: 300 }}
               />
             </div>
 
@@ -425,6 +445,14 @@ const Index = () => {
             </article>
           </div>
         </section>
+        {/* Adsterra placement moved here (no AdSense slots nearby) */}
+        <div className="flex justify-center mb-8">
+          <div
+            id="adsterra-landing-incontent"
+            className="adsterra-banner"
+            style={{ minHeight: 50, width: "100%", maxWidth: 320 }}
+          />
+        </div>
       </main>
 
       <Footer />
