@@ -12,6 +12,7 @@ import Header from "@/components/Header";
 import { Helmet } from "react-helmet-async";
 import Footer from "@/components/Footer";
 import { useEffect } from "react";
+import AdsterraBanner from "@/components/AdsterraBanner";
 
 const Index = () => {
   useEffect(() => {
@@ -97,54 +98,6 @@ const Index = () => {
       }
     } catch (err) {
       console.error("AdSense init error:", err);
-    }
-    // Inject Adsterra snippets into dedicated containers (two non-coinciding slots)
-    try {
-      if (typeof document !== "undefined") {
-        // 320x50 mobile banner (keeps previous placement above footer)
-        const containerSmall = document.getElementById(
-          "adsterra-landing-incontent"
-        );
-        if (containerSmall && !containerSmall.dataset.injected) {
-          const inlineSmall = document.createElement("script");
-          inlineSmall.type = "text/javascript";
-          inlineSmall.innerHTML =
-            "atOptions = { 'key' : 'f86496dbc7f82a79bfcb8f358d2b9896', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };";
-          containerSmall.appendChild(inlineSmall);
-
-          const remoteSmall = document.createElement("script");
-          remoteSmall.type = "text/javascript";
-          remoteSmall.src =
-            "//www.highperformanceformat.com/f86496dbc7f82a79bfcb8f358d2b9896/invoke.js";
-          remoteSmall.async = true;
-          containerSmall.appendChild(remoteSmall);
-
-          containerSmall.dataset.injected = "1";
-        }
-
-        // 300x250 in-content banner (SEO section)
-        const containerLarge = document.getElementById(
-          "adsterra-landing-incontent-300x250"
-        );
-        if (containerLarge && !containerLarge.dataset.injected) {
-          const inlineLarge = document.createElement("script");
-          inlineLarge.type = "text/javascript";
-          inlineLarge.innerHTML =
-            "atOptions = { 'key' : 'b3e841a50d3f6d225a3b8da527aaebd5', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };";
-          containerLarge.appendChild(inlineLarge);
-
-          const remoteLarge = document.createElement("script");
-          remoteLarge.type = "text/javascript";
-          remoteLarge.src =
-            "//www.highperformanceformat.com/b3e841a50d3f6d225a3b8da527aaebd5/invoke.js";
-          remoteLarge.async = true;
-          containerLarge.appendChild(remoteLarge);
-
-          containerLarge.dataset.injected = "1";
-        }
-      }
-    } catch (err) {
-      console.error("Adsterra inject error:", err);
     }
   }, []);
 
@@ -383,13 +336,9 @@ const Index = () => {
         {/* SEO Content Section */}
         <section className="py-20 bg-secondary/30">
           <div className="container max-w-4xl">
-            {/* Adsterra - In-content (300x250) placed in SEO content to avoid AdSense slots */}
+            {/* Adsterra - In-content (300x250) */}
             <div className="flex justify-center mb-8">
-              <div
-                id="adsterra-landing-incontent-300x250"
-                className="adsterra-banner"
-                style={{ minHeight: 250, width: "100%", maxWidth: 300 }}
-              />
+              <AdsterraBanner adKey="b3e841a50d3f6d225a3b8da527aaebd5" width={300} height={250} />
             </div>
 
             <article className="prose prose-gray max-w-none">
@@ -445,13 +394,10 @@ const Index = () => {
             </article>
           </div>
         </section>
-        {/* Adsterra placement moved here (no AdSense slots nearby) */}
+
+        {/* Adsterra - Mobile Banner */}
         <div className="flex justify-center mb-8">
-          <div
-            id="adsterra-landing-incontent"
-            className="adsterra-banner"
-            style={{ minHeight: 50, width: "100%", maxWidth: 320 }}
-          />
+          <AdsterraBanner adKey="f86496dbc7f82a79bfcb8f358d2b9896" width={320} height={50} />
         </div>
       </main>
 
