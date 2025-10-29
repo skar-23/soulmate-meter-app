@@ -15,36 +15,109 @@ import { useEffect } from "react";
 
 const Index = () => {
   useEffect(() => {
-    // Push AdSense ads
+    // Push AdSense ads safely: wait until each <ins.adsbygoogle> has a non-zero width
+    const pushAdWhenVisible = (ins: HTMLModElement) => {
+      return new Promise<void>((resolve) => {
+        const doPush = () => {
+          try {
+            // mark to avoid double-initializing
+            if (ins.dataset.adsInitialized) {
+              resolve();
+              return;
+            }
+            // @ts-expect-error - adsbygoogle is loaded from external script
+            if (typeof window !== "undefined" && window.adsbygoogle) {
+              // @ts-expect-error - adsbygoogle push
+              (window.adsbygoogle = window.adsbygoogle || []).push({});
+              ins.dataset.adsInitialized = "1";
+            }
+          } catch (err) {
+            console.error("AdSense error:", err);
+          }
+          resolve();
+        };
+
+        // If already sized, push immediately
+        if (ins.offsetWidth && ins.offsetWidth > 0) {
+          doPush();
+          return;
+        }
+
+        // Try to use ResizeObserver when available to wait for a width
+        const winAny = window as any;
+        if (typeof winAny.ResizeObserver !== "undefined") {
+          try {
+            const ro = new winAny.ResizeObserver(() => {
+              if (ins.offsetWidth && ins.offsetWidth > 0) {
+                ro.disconnect();
+                doPush();
+              }
+            });
+            ro.observe(ins);
+            // safety timeout: give up after 10s and attempt push
+            setTimeout(() => {
+              try {
+                ro.disconnect();
+              } catch {}
+              doPush();
+            }, 10000);
+            return;
+          } catch (e) {
+            // fallthrough to polling
+          }
+        }
+
+        // Fallback: poll until offsetWidth > 0 or timeout
+        const interval = setInterval(() => {
+          if (ins.offsetWidth && ins.offsetWidth > 0) {
+            clearInterval(interval);
+            doPush();
+          }
+        }, 250);
+
+        // safety timeout
+        setTimeout(() => {
+          clearInterval(interval);
+          doPush();
+        }, 10000);
+      });
+    };
+
     try {
-      // @ts-expect-error - adsbygoogle is loaded from external script
-      if (typeof window !== "undefined" && window.adsbygoogle) {
-        // @ts-expect-error - adsbygoogle push
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
-        // @ts-expect-error - adsbygoogle push
-        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      if (typeof document !== "undefined") {
+        const nodes = Array.from(
+          document.querySelectorAll("ins.adsbygoogle")
+        ) as HTMLModElement[]; // <ins> uses HTMLModElement in the DOM lib
+        nodes.forEach((ins) => {
+          // start a watcher for each ad container
+          pushAdWhenVisible(ins).catch((e) =>
+            console.error("pushAdWhenVisible error:", e)
+          );
+        });
       }
     } catch (err) {
-      console.error("AdSense error:", err);
+      console.error("AdSense init error:", err);
     }
-    // Inject Adsterra in-content banner for landing page (300x250)
+    // Inject Adsterra in-content banner for landing page (single small banner to avoid overlap)
     try {
       if (typeof document !== "undefined") {
         const container = document.getElementById("adsterra-landing-incontent");
         if (container && !container.dataset.injected) {
-          // set atOptions inline
+          // Use the provided Adsterra snippet (50x320) — keep AdSense ads untouched elsewhere
           const inline = document.createElement("script");
           inline.type = "text/javascript";
-          inline.innerHTML = `atOptions = {\n  'key' : 'b3e841a50d3f6d225a3b8da527aaebd5',\n  'format' : 'iframe',\n  'height' : 250,\n  'width' : 300,\n  'params' : {}\n};`;
+          inline.innerHTML = `atOptions = {\n	'key' : 'f86496dbc7f82a79bfcb8f358d2b9896',\n	'format' : 'iframe',\n	'height' : 50,\n	'width' : 320,\n	'params' : {}\n};`;
           container.appendChild(inline);
 
           const remote = document.createElement("script");
           remote.type = "text/javascript";
+          // protocol-relative URL as provided
           remote.src =
-            "https://www.highperformanceformat.com/b3e841a50d3f6d225a3b8da527aaebd5/invoke.js";
+            "//www.highperformanceformat.com/f86496dbc7f82a79bfcb8f358d2b9896/invoke.js";
           remote.async = true;
           container.appendChild(remote);
 
+          // mark so we don't inject twice
           container.dataset.injected = "1";
         }
       }
@@ -290,7 +363,13 @@ const Index = () => {
           <div className="container max-w-4xl">
             {/* Adsterra - In-content landing banner (300x250) */}
             <div className="flex justify-center mb-8">
-              <div id="adsterra-landing-incontent" style={{ minHeight: 250 }} />
+              {/* Adsterra container: make visible and centered on both mobile and desktop.
+                  Use full width but constrain to 320px so desktop shows a compact banner while mobile fits naturally. */}
+              <div
+                id="adsterra-landing-incontent"
+                className="adsterra-banner"
+                style={{ minHeight: 50, width: "100%", maxWidth: 320 }}
+              />
             </div>
 
             <article className="prose prose-gray max-w-none">
