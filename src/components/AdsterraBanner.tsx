@@ -11,32 +11,55 @@ const AdsterraBanner = ({ adKey, width, height }: AdsterraBannerProps) => {
   const bannerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (bannerRef.current && !bannerRef.current.dataset.injected) {
-      const container = bannerRef.current;
+    const loadAd = () => {
+      // Check for a global lock. If an ad is already loading, wait and retry.
+      if ((window as any).adsterraLoading) {
+        setTimeout(loadAd, 200); // Poll every 200ms
+        return;
+      }
 
-      const inlineScript = document.createElement('script');
-      inlineScript.type = 'text/javascript';
-      inlineScript.innerHTML = `
-        atOptions = {
-          'key' : '${adKey}',
-          'format' : 'iframe',
-          'height' : ${height},
-          'width' : ${width},
-          'params' : {}
+      // Make sure component is still mounted and ad not already injected
+      if (bannerRef.current && !bannerRef.current.dataset.injected) {
+        // Set the global lock
+        (window as any).adsterraLoading = true;
+        
+        const container = bannerRef.current;
+
+        const inlineScript = document.createElement('script');
+        inlineScript.type = 'text/javascript';
+        inlineScript.innerHTML = `
+          atOptions = {
+            'key' : '${adKey}',
+            'format' : 'iframe',
+            'height' : ${height},
+            'width' : ${width},
+            'params' : {}
+          };
+        `;
+        
+        const remoteScript = document.createElement('script');
+        remoteScript.type = 'text/javascript';
+        remoteScript.src = `//www.highperformanceformat.com/${adKey}/invoke.js`;
+        remoteScript.async = true;
+
+        // Release the lock once the script has loaded or failed
+        remoteScript.onload = () => {
+          (window as any).adsterraLoading = false;
         };
-      `;
-      
-      const remoteScript = document.createElement('script');
-      remoteScript.type = 'text/javascript';
-      remoteScript.src = `//www.highperformanceformat.com/${adKey}/invoke.js`;
-      remoteScript.async = true;
+        remoteScript.onerror = () => {
+          (window as any).adsterraLoading = false;
+        };
+        
+        container.appendChild(inlineScript);
+        container.appendChild(remoteScript);
 
-      container.appendChild(inlineScript);
-      container.appendChild(remoteScript);
+        // Mark as injected to prevent re-injection
+        container.dataset.injected = '1';
+      }
+    };
+    
+    loadAd();
 
-      // Mark as injected to prevent re-injection on re-renders
-      container.dataset.injected = '1';
-    }
   }, [adKey, width, height]);
 
   return (
