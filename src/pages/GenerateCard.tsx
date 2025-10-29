@@ -251,9 +251,7 @@ export default function GenerateCard() {
           type: "image/png",
         }),
       ];
-      // @ts-expect-error - Navigator.share with files is not yet in TypeScript types
       if (navigator.canShare && navigator.canShare({ files: filesArray })) {
-        // @ts-expect-error - Navigator.share with files is not yet in TypeScript types
         await navigator.share({ files: filesArray, title: title });
       } else {
         alert("Share not supported on this browser. Please download instead.");
